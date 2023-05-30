@@ -18,6 +18,14 @@ jobs:
         run: |
           echo "TAG_NAME=cmt-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
+      - name: Install libreoffice
+        run: |
+          sudo apt install -y libreoffice
+      
+      - name: Generate PDF
+        run: |
+          libreoffice --convert-to pdf "explanatory note/explanatory note.odt"
+
       - name: Create a Release
         uses: softprops/action-gh-release@v1
         with:
@@ -26,3 +34,5 @@ jobs:
             For commit ${{ github.sha }} on 
           name: Laster release
           tag_name: ${{ env.TAG_NAME }}
+          files: |
+            explanatory note.pdf
