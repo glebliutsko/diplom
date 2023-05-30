@@ -1,0 +1,28 @@
+name: Create release on push
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions: write-all
+
+    steps:
+      - name: Cloning
+        uses: actions/checkout@v3
+
+      - name: Generate tag name
+        run: |
+          echo "TAG_NAME=cmt-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Create a Release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: True
+          body: |
+            For commit ${{ github.sha }} on 
+          name: Laster release
+          tag_name: ${{ env.TAG_NAME }}
