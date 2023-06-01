@@ -15,4 +15,8 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ExamPapers.Database.ORM\ExamPapers.Database.ORM.csproj" />
+    </ItemGroup>
+
 </Project>
