@@ -1,4 +1,4 @@
-name: Create release on push
+name: Create release on last commit master
 
 on:
   push:
@@ -44,8 +44,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.PERSONAL_GH_TOKEN }}
-          prerelease: True
-          body: |
-            For commit ${{ github.sha }} on 
           name: Laster commit
+
+          prerelease: True
           tag_name: ${{ env.TAG_NAME }}

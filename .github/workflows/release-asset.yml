@@ -1,10 +1,9 @@
 name: Upload asset to release
 
 on:
-  push:
-    tags:
-      - 'v*'
-      - 'latest'
+  release:
+    types:
+      - published
 
 
 jobs:
@@ -27,5 +26,40 @@ jobs:
       - name: Upload asset release
         uses: softprops/action-gh-release@v1
         with:
+          append_body: true
           files: |
             explanatory note.pdf
+    
+  build-server-api:
+    runs-on: ubuntu-latest
+
+    env:
+      DOTNET_VERSION: 7.0.x
+
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Cloning
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Build ALL
+        run: ./build.sh
+      
+      - name: Archive pack
+        run: |
+          for i in build/linux-*; do (cd "$i"; tar -cvJf "../$(basename $i).tar.xz" *); done
+          for i in build/windows-*; do (cd "$i"; zip -r "../$(basename $i).zip" *); done
+      
+      - name: Upload asset release
+        uses: softprops/action-gh-release@v1
+        with:
+          append_body: true
+          files: |
+            build/*.tar.xz
+            build/*.zip
