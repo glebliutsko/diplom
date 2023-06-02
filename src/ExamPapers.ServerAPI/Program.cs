@@ -15,6 +15,8 @@ builder.Services.AddScoped<UserDataAccesser>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddControllers();
+
+#if DEBUG
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -24,14 +26,14 @@ builder.Services.AddSwaggerGen(options =>
     if (xmlFile.Exists)
         options.IncludeXmlComments(xmlFile.FullName);
 });
+#endif
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+#if DEBUG
+app.UseSwagger();
+app.UseSwaggerUI();
+#endif
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
