@@ -1,4 +1,5 @@
-using ExamPapers.Database.ORM;
+using ExamPapers.ServerAPI.DataAccess;
+using ExamPapers.ServerAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,10 @@ builder.Services.AddDbContext<ExamPapersDbContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("connection");
     options.UseNpgsql(connectionString);
 });
+
+builder.Services.AddScoped<UserDataAccesser>();
+
+builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
