@@ -19,6 +19,8 @@ public class AuthenticationController : ControllerBase
     /// </summary>
     /// <param name="credential">Учетные данные пользователя</param>
     /// <returns></returns>
+    /// <response code="200">Успешная авторизация</response>
+    /// <response code="401">Неверный логин или пароль</response>
     [HttpPost]
     [Route("[action]")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]

@@ -8,10 +8,12 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <DocumentationFile>bin\Debug\net7.0\ExamPapers.ServerAPI.xml</DocumentationFile>
+      <NoWarn>1701;1702;IL2121;1591</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DocumentationFile>bin\Release\net7.0\ExamPapers.ServerAPI.xml</DocumentationFile>
+      <NoWarn>1701;1702;IL2121;1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

@@ -16,7 +16,14 @@ builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var basePath = AppContext.BaseDirectory;
+
+    var xmlFile = new FileInfo(Path.Combine(basePath, "ExamPapers.ServerAPI.xml"));
+    if (xmlFile.Exists)
+        options.IncludeXmlComments(xmlFile.FullName);
+});
 
 var app = builder.Build();
 
