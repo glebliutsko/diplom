@@ -5,34 +5,47 @@ on:
     branches: [ "master" ]
 
 jobs:
-  release:
+  create-release:
     runs-on: ubuntu-latest
 
-    permissions: write-all
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG_NAME: latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Cloning
         uses: actions/checkout@v3
-
-      - name: Generate tag name
-        run: |
-          echo "TAG_NAME=$(date +'%Y-%m-%dT%H%M%S')" >> $GITHUB_ENV
-
-      - name: Install libreoffice
-        run: |
-          sudo apt install -y libreoffice
+        with:
+          fetch-depth: 0
       
-      - name: Generate PDF
+      - name: Remove old release
         run: |
-          libreoffice --convert-to pdf "explanatory note/explanatory note.odt"
+          if gh release view "$TAG_NAME" > /dev/null; then
+            echo "Release $TAG_NAME already exsist. Delete it."
+            gh release delete -y "$TAG_NAME"
+          else
+            echo "Release not exsist. Skip delete."
+          fi
+      
+      - name: Remove old tag
+        run: |
+          if git tag -l | grep -E "^$TAG_NAME$" > /dev/null; then
+            echo "Tag $TAG_NAME already exsist. Delete it"
+            git tag -d "$TAG_NAME"
+            git push origin -d "$TAG_NAME"
+          else
+            echo "Tag not exsist. Skip delete."
+          fi
 
-      - name: Create a Release
+      - name: Create new Release
         uses: softprops/action-gh-release@v1
         with:
+          token: ${{ secrets.PERSONAL_GH_TOKEN }}
           prerelease: True
           body: |
             For commit ${{ github.sha }} on 
-          name: Laster release
+          name: Laster commit
           tag_name: ${{ env.TAG_NAME }}
-          files: |
-            explanatory note.pdf

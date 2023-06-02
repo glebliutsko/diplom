@@ -1,0 +1,31 @@
+name: Upload asset to release
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - 'latest'
+
+
+jobs:
+  upload-pdf:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Cloning
+        uses: actions/checkout@v3
+      
+      - name: Install libreoffice
+        run: sudo apt install -y libreoffice
+      
+      - name: Generate PDF
+        run: libreoffice --convert-to pdf "explanatory note/explanatory note.odt"
+      
+      - name: Upload asset release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            explanatory note.pdf
