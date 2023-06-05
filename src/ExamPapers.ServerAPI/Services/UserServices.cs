@@ -23,8 +23,9 @@ public class UserServices : IUserServices
         if (user == null)
             return null;
 
-        _hasher.ValidatePassword(password, user.PasswordHash);
+        if (_hasher.ValidatePassword(password, user.PasswordHash))
+            return user;
         
-        return user;
+        return null;
     }
 }
