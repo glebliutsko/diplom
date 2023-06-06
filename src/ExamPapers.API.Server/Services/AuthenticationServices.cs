@@ -75,4 +75,10 @@ public class AuthenticationServices : IAuthenticationServices
         var user = (await _userDataAccesser.GetById(token.UserId))!;
         return UserMapper.OrmModel2ApiEntity(user);
     }
+
+    public async Task CancellationToken(string token)
+    {
+        await _tokenDataAccesser.DeleteByValue(token);
+        await _tokenDataAccesser.Save();
+    }
 }

@@ -1,4 +1,5 @@
 using ExamPapers.API.Server.Services;
+using ExamPapers.API.Server.Utils.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,13 +45,22 @@ public class AuthenticationController : ControllerBase
         return Ok(token);
     }
 
-    [HttpGet]
+    /// <summary>
+    /// Выход. Деактивация токена.
+    /// </summary>
+    /// <returns></returns>
+    /// <response code="201">Токен деактивирован</response>
+    /// <response code="401">Ошибка авторизации</response>
+    [HttpPost]
     [Route("[action]")]
     [Authorize]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Logout()
     {
+        var token = User.GetToken()!;
+        await _authenticationServices.CancellationToken(token);
         
-        return Ok(User.Identity?.AuthenticationType);
+        return NoContent();
     }
 }

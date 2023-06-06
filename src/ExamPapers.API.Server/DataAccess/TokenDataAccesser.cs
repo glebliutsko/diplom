@@ -16,6 +16,13 @@ public class TokenDataAccesser : IDataAccesser<ORMModels.Token>
         return await _db.Tokens.FirstOrDefaultAsync(x => x.Value == value);
     }
 
+    public async Task DeleteByValue(string value)
+    {
+        var token = await GetByValue(value);
+        if (token != null)
+            Delete(token);
+    }
+
     public async Task<IEnumerable<ORMModels.Token>> GetAll()
     {
         return await _db.Tokens.ToArrayAsync();
