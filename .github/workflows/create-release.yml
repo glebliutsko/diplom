@@ -40,11 +40,8 @@ jobs:
             echo "Tag not exsist. Skip delete."
           fi
 
-      - name: Create new Release
-        uses: softprops/action-gh-release@v1
-        with:
-          token: ${{ secrets.PERSONAL_GH_TOKEN }}
-          name: Laster commit
-
-          prerelease: True
-          tag_name: ${{ env.TAG_NAME }}
+      - name: Create new release
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
+        run: |
+          gh release create "$TAG_NAME" --prerelease --title "Laster commit"
