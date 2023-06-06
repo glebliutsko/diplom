@@ -69,4 +69,22 @@ public class AuthenticationServices : IAuthenticationServices
             }
         };
     }
+
+    public async Task<User?> ValidateToken(string tokenValue)
+    {
+        var token = await _tokenDataAccesser.GetByValue(tokenValue);
+
+        if (token == null)
+            return null;
+        
+        if (token.Expire < DateTime.UtcNow)
+            return null; // TODO: Кидание исключения, а не null. 
+
+        var user = (await _userDataAccesser.GetById(token.UserId))!;
+        return new User
+        {
+            Id = user.Id,
+            Login = user.Login
+        };
+    }
 }

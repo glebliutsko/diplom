@@ -10,7 +10,12 @@ public class TokenDataAccesser : IDataAccesser<ORMModels.Token>
     {
         _db = db;
     }
-    
+
+    public async Task<ORMModels.Token?> GetByValue(string value)
+    {
+        return await _db.Tokens.FirstOrDefaultAsync(x => x.Value == value);
+    }
+
     public async Task<IEnumerable<ORMModels.Token>> GetAll()
     {
         return await _db.Tokens.ToArrayAsync();
