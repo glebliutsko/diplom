@@ -3,6 +3,7 @@ using System;
 using ExamPapers.Database.ORM;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExamPapers.Database.ORM.Migrations
 {
     [DbContext(typeof(ExamPapersDbContext))]
-    partial class ExamPapersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605013123_CreateTokenTable")]
+    partial class CreateTokenTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

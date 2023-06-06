@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ExamPapersDbContext>(options =>
 });
 
 builder.Services.AddScoped<UserDataAccesser>();
+builder.Services.AddScoped<TokenDataAccesser>();
 
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
 

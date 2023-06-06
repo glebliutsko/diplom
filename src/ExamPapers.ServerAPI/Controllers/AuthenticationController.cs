@@ -1,4 +1,5 @@
 using ExamPapers.ServerAPI.Services;
+using ExamPapers.ServerAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamPapers.ServerAPI.Controllers;
@@ -29,14 +30,17 @@ public class AuthenticationController : ControllerBase
     {
         var user = await _authenticationServices.CheckCredentials(credential.Login, credential.Password);
         if (user == null)
+        {
             return Unauthorized(new Error
             {
                 StatusCode = 401,
                 ErrorCode = "InvalidCredential",
                 Detail = "Invalid login or password."
             });
+        }
 
-        return Ok(user);
+        var token = await _authenticationServices.IssueToken(user.Id);
+        return Ok(token);
     }
 
     [HttpGet]
