@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ExamPapers.ServerAPI.DTO;
+namespace ExamPapers.API.Entity;
 
 public record Token
 {

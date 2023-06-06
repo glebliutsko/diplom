@@ -1,5 +1,5 @@
-using ExamPapers.ServerAPI.DataAccess;
-using ExamPapers.ServerAPI.Services;
+using ExamPapers.API.Server.DataAccess;
+using ExamPapers.API.Server.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     var basePath = AppContext.BaseDirectory;
 
-    var xmlFile = new FileInfo(Path.Combine(basePath, "ExamPapers.ServerAPI.xml"));
+    var xmlFile = new FileInfo(Path.Combine(basePath, "ExamPapers.API.Server.xml"));
     if (xmlFile.Exists)
         options.IncludeXmlComments(xmlFile.FullName);
 });

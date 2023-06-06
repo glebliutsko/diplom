@@ -1,4 +1,4 @@
-namespace ExamPapers.ServerAPI.Services;
+namespace ExamPapers.API.Server.Services;
 
 public interface IAuthenticationServices
 {

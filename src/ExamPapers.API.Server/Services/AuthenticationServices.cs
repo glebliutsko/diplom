@@ -1,8 +1,8 @@
-using ExamPapers.ServerAPI.DataAccess;
-using ExamPapers.ServerAPI.Utils;
-using ExamPapers.ServerAPI.Utils.PasswordHash;
+using ExamPapers.API.Server.DataAccess;
+using ExamPapers.API.Server.Utils;
+using ExamPapers.API.Server.Utils.PasswordHash;
 
-namespace ExamPapers.ServerAPI.Services;
+namespace ExamPapers.API.Server.Services;
 
 public class AuthenticationServices : IAuthenticationServices
 {

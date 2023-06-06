@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.ServerAPI", "ExamPapers.ServerAPI\ExamPapers.ServerAPI.csproj", "{E33746F4-BB30-454A-8EC0-760CDA963119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.API.Server", "ExamPapers.API.Server\ExamPapers.API.Server.csproj", "{E33746F4-BB30-454A-8EC0-760CDA963119}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.Database.ORM", "ExamPapers.Database.ORM\ExamPapers.Database.ORM.csproj", "{52201F11-A999-4648-AC34-3962D64679C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.ServerAPI.DTO", "ExamPapers.ServerAPI.DTO\ExamPapers.ServerAPI.DTO.csproj", "{611D4927-E0B9-4C7A-A9B3-D16964B13452}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.API.Entity", "ExamPapers.API.Entity\ExamPapers.API.Entity.csproj", "{611D4927-E0B9-4C7A-A9B3-D16964B13452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

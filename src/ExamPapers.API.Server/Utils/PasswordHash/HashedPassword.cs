@@ -1,4 +1,4 @@
-namespace ExamPapers.ServerAPI.Utils.PasswordHash;
+namespace ExamPapers.API.Server.Utils.PasswordHash;
 
 public record HashedPassword(byte[] Salt, byte[] Hash)
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace ExamPapers.ServerAPI.DataAccess;
+namespace ExamPapers.API.Server.DataAccess;
 
 public class UserDataAccesser : IDataAccesser<ORMModels.User>
 {

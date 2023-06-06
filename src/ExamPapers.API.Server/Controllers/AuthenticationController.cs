@@ -1,8 +1,7 @@
-using ExamPapers.ServerAPI.Services;
-using ExamPapers.ServerAPI.Utils;
+using ExamPapers.API.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExamPapers.ServerAPI.Controllers;
+namespace ExamPapers.API.Server.Controllers;
 
 [ApiController]
 [Route("[controller]")]

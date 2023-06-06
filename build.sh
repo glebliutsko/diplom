@@ -7,7 +7,7 @@ DOTNET_PUBLISH_OPTION_NO_SELF="$DOTNET_PUBLISH_OPTION --no-self-contained"
 BASEDIR=$(realpath "$(dirname "$0")")
 BUILDDIR="$BASEDIR/build"
 
-PATH_TO_PROJECT_SERVER="$BASEDIR/src/ExamPapers.ServerAPI"
+PATH_TO_PROJECT_SERVER="$BASEDIR/src/ExamPapers.API.Server"
 
 cd "$BASEDIR" || exit 1
 

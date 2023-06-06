@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ExamPapers.ServerAPI.Utils;
+namespace ExamPapers.API.Server.Utils;
 
 public class RandomString
 {

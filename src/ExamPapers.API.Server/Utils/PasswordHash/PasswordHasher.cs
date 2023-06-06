@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ExamPapers.ServerAPI.Utils.PasswordHash;
+namespace ExamPapers.API.Server.Utils.PasswordHash;
 
 public class PasswordHasher : IPasswordHasher
 {

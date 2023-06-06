@@ -27,7 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExamPapers.Database.ORM\ExamPapers.Database.ORM.csproj" />
-      <ProjectReference Include="..\ExamPapers.ServerAPI.DTO\ExamPapers.ServerAPI.DTO.csproj" />
+      <ProjectReference Include="..\ExamPapers.API.Entity\ExamPapers.API.Entity.csproj" />
     </ItemGroup>
 
 </Project>

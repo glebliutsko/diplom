@@ -1,4 +1,4 @@
-namespace ExamPapers.ServerAPI.DataAccess;
+namespace ExamPapers.API.Server.DataAccess;
 
 public interface IDataAccesser<T> where T: class
 {
