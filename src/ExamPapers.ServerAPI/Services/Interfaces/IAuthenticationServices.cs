@@ -1,6 +1,6 @@
 namespace ExamPapers.ServerAPI.Services;
 
-public interface IUserServices
+public interface IAuthenticationServices
 {
     public Task<ORMModels.User?> CheckCredentials(string login, string password);
 }

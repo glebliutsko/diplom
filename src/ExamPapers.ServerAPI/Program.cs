@@ -12,7 +12,7 @@ builder.Services.AddDbContext<ExamPapersDbContext>(options =>
 
 builder.Services.AddScoped<UserDataAccesser>();
 
-builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
 
 builder.Services.AddControllers();
 

@@ -7,11 +7,11 @@ namespace ExamPapers.ServerAPI.Controllers;
 [Route("[controller]")]
 public class AuthenticationController : ControllerBase
 {
-    private readonly IUserServices _userServices;
+    private readonly IAuthenticationServices _authenticationServices;
 
-    public AuthenticationController(IUserServices userServices)
+    public AuthenticationController(IAuthenticationServices authenticationServices)
     {
-        _userServices = userServices;
+        _authenticationServices = authenticationServices;
     }
     
     /// <summary>
@@ -27,7 +27,7 @@ public class AuthenticationController : ControllerBase
     [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(Credential credential)
     {
-        var user = await _userServices.CheckCredentials(credential.Login, credential.Password);
+        var user = await _authenticationServices.CheckCredentials(credential.Login, credential.Password);
         if (user == null)
             return Unauthorized(new Error
             {

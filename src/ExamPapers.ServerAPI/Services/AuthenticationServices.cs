@@ -3,18 +3,18 @@ using ExamPapers.ServerAPI.Utils.PasswordHash;
 
 namespace ExamPapers.ServerAPI.Services;
 
-public class UserServices : IUserServices
+public class AuthenticationServices : IAuthenticationServices
 {
     private readonly UserDataAccesser _userDataAccesser;
     private readonly IPasswordHasher _hasher;
 
-    public UserServices(UserDataAccesser userDataAccesser, IPasswordHasher hasher)
+    public AuthenticationServices(UserDataAccesser userDataAccesser, IPasswordHasher hasher)
     {
         _userDataAccesser = userDataAccesser;
         _hasher = hasher;
     }
 
-    public UserServices(UserDataAccesser userDataAccesser) : this(userDataAccesser, new PasswordHasher())
+    public AuthenticationServices(UserDataAccesser userDataAccesser) : this(userDataAccesser, new PasswordHasher())
     { }
 
     public async Task<ORMModels.User?> CheckCredentials(string login, string password)
