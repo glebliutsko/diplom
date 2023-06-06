@@ -22,6 +22,11 @@ builder.Services.AddAuthentication(TokenAuthOptions.DefaultSchemeName)
     {
 
     });
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
 builder.Services.AddControllers();
 
 #if DEBUG
