@@ -10,8 +10,12 @@ public class User
 
     [Required]
     [StringLength(255)]
-    public string Login { get; set; }
+    public string FullName { get; set; }
     
+    [Required]
+    [StringLength(255)]
+    public string Login { get; set; }
+
     [Required]
     [StringLength(144)]
     public string PasswordHash { get; set; }

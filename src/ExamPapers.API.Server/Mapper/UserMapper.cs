@@ -7,7 +7,8 @@ public static class UserMapper
         return new User
         {
             Id = user.Id,
-            Login = user.Login
+            Login = user.Login,
+            FullName = user.FullName
         };
     }
 }
