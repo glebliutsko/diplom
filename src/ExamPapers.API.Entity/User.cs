@@ -5,7 +5,7 @@ namespace ExamPapers.API.Entity;
 public record User
 {
     [Required]
-    public required int Id { get; set; }
+    public required int Id { get; init; }
     
     [Required(AllowEmptyStrings = false)]
     [StringLength(255)]

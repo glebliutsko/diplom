@@ -1,4 +1,5 @@
 using ExamPapers.API.Server.DataAccess;
+using ExamPapers.API.Server.Mapper;
 using ExamPapers.API.Server.Utils;
 using ExamPapers.API.Server.Utils.PasswordHash;
 
@@ -28,14 +29,14 @@ public class AuthenticationServices : IAuthenticationServices
     {
     }
 
-    public async Task<ORMModels.User?> CheckCredentials(string login, string password)
+    public async Task<User?> CheckCredentials(string login, string password)
     {
         var user = await _userDataAccesser.GetByLogin(login);
         if (user == null)
             return null;
 
         if (_hasher.ValidatePassword(password, user.PasswordHash))
-            return user;
+            return UserMapper.OrmModel2ApiEntity(user);
 
         return null;
     }
@@ -57,17 +58,8 @@ public class AuthenticationServices : IAuthenticationServices
         };
         await _tokenDataAccesser.Create(ormToken);
         await _tokenDataAccesser.Save();
-        
-        return new Token
-        {
-            AccessToken = ormToken.Value,
-            Expire = ormToken.Expire,
-            User = new User
-            {
-                Id = forUser.Id,
-                Login = forUser.Login
-            }
-        };
+
+        return TokenMapper.OrmModel2ApiEntity(ormToken, forUser);
     }
 
     public async Task<User?> ValidateToken(string tokenValue)
@@ -81,10 +73,6 @@ public class AuthenticationServices : IAuthenticationServices
             return null; // TODO: Кидание исключения, а не null. 
 
         var user = (await _userDataAccesser.GetById(token.UserId))!;
-        return new User
-        {
-            Id = user.Id,
-            Login = user.Login
-        };
+        return UserMapper.OrmModel2ApiEntity(user);
     }
 }
