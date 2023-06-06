@@ -1,6 +1,7 @@
 using ExamPapers.API.Server.Authentication;
 using ExamPapers.API.Server.DataAccess;
 using ExamPapers.API.Server.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -27,7 +28,23 @@ builder.Services.AddRouting(options =>
     options.LowercaseUrls = true;
     options.LowercaseQueryStrings = true;
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var allErrors = context.ModelState.Values
+                .SelectMany(x => x.Errors)
+                .Select(x => new Error {Detail = x.ErrorMessage});
+
+            return new BadRequestObjectResult(new ErrorsList
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                ErrorCode = "InvalidDataScheme",
+                Errors = allErrors
+            });
+        };
+    });
 
 #if DEBUG
 builder.Services.AddEndpointsApiExplorer();
@@ -47,6 +64,7 @@ builder.Services.AddSwaggerGen(options =>
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer"
     });
+    
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {

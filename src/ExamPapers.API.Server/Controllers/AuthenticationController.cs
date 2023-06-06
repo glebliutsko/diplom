@@ -25,17 +25,18 @@ public class AuthenticationController : ControllerBase
     [HttpPost]
     [Route("[action]")]
     [ProducesResponseType(typeof(Token), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorsList), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(Credential credential)
     {
         var user = await _authenticationServices.CheckCredentials(credential.Login, credential.Password);
         if (user == null)
         {
-            return Unauthorized(new Error
+            return Unauthorized(new ErrorsList
             {
                 StatusCode = 401,
                 ErrorCode = "InvalidCredential",
-                Detail = "Invalid login or password."
+                Errors = new List<Error>
+                { new() { Detail = "Invalid login or password." } }
             });
         }
         
