@@ -1,0 +1,8 @@
+times.ttf filter=lfs diff=lfs merge=lfs -text
+GOST2304_TypeA_italic.ttf filter=lfs diff=lfs merge=lfs -text
+GOST2304_TypeA.ttf filter=lfs diff=lfs merge=lfs -text
+GOST2304_TypeB_italic.ttf filter=lfs diff=lfs merge=lfs -text
+GOST2304_TypeB.ttf filter=lfs diff=lfs merge=lfs -text
+timesbd.ttf filter=lfs diff=lfs merge=lfs -text
+timesbi.ttf filter=lfs diff=lfs merge=lfs -text
+timesi.ttf filter=lfs diff=lfs merge=lfs -text
