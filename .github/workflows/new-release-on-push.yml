@@ -1,8 +1,10 @@
-name: Create release on last commit master
+name: Create release for last commit on push
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches:
+      - 'master'
 
 jobs:
   create-release:
@@ -44,5 +46,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_GH_TOKEN }}
         run: |
-          gh release create "$TAG_NAME" --prerelease --title "Laster commit"
+          gh release create "$TAG_NAME" --prerelease --title "Latest commit"
           gh release edit "$TAG_NAME" --draft=false
