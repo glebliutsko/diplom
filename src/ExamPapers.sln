@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.Database.ORM", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.API.Entity", "ExamPapers.API.Entity\ExamPapers.API.Entity.csproj", "{611D4927-E0B9-4C7A-A9B3-D16964B13452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamPapers.API.Client", "ExamPapers.API.Client\ExamPapers.API.Client.csproj", "{36EA12CA-D768-478C-9BE6-BA88397C810F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{611D4927-E0B9-4C7A-A9B3-D16964B13452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{611D4927-E0B9-4C7A-A9B3-D16964B13452}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{611D4927-E0B9-4C7A-A9B3-D16964B13452}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36EA12CA-D768-478C-9BE6-BA88397C810F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36EA12CA-D768-478C-9BE6-BA88397C810F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36EA12CA-D768-478C-9BE6-BA88397C810F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36EA12CA-D768-478C-9BE6-BA88397C810F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
