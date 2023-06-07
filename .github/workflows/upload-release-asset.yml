@@ -12,10 +12,21 @@ jobs:
 
     permissions:
       contents: write
+      
+    env:
+      DEBIAN_FRONTEND: noninteractive
     
     steps:
       - name: Cloning
         uses: actions/checkout@v3
+        with:
+          lfs: true
+      
+      - name: Install fonts
+        run: |
+          sudo apt install -y fontconfig
+          cp explanatory\ note/fonts/*.ttf /usr/share/fonts
+          fc-cache -f -v
       
       - name: Install libreoffice
         run: sudo apt install -y libreoffice
