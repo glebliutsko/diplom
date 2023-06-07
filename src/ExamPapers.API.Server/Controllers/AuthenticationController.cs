@@ -17,18 +17,28 @@ public class AuthenticationController : ControllerBase
     }
     
     /// <summary>
-    /// Аутентификация и получение токена. 
+    /// Получение токена.
     /// </summary>
     /// <param name="credential">Учетные данные пользователя</param>
     /// <returns></returns>
     /// <response code="200">Успешная авторизация</response>
     /// <response code="401">Неверный логин или пароль</response>
-    [HttpPost]
+    [HttpGet]
     [Route("[action]")]
     [ProducesResponseType(typeof(Token), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorsList), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Login(Credential credential)
+    public async Task<IActionResult> Token([FromQuery] Credential credential)
     {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new ErrorsList
+            {
+                StatusCode = StatusCodes.Status403Forbidden,
+                ErrorCode = "AlreadyAuthorized",
+                Errors = new List<Error> { new() { Detail = "User already authorized" }}
+            });
+        }
+        
         var user = await _authenticationServices.CheckCredentials(credential.Login, credential.Password);
         if (user == null)
         {
@@ -51,7 +61,7 @@ public class AuthenticationController : ControllerBase
     /// <returns></returns>
     /// <response code="201">Токен деактивирован</response>
     /// <response code="401">Ошибка авторизации</response>
-    [HttpPost]
+    [HttpGet]
     [Route("[action]")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
