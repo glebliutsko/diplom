@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ExamPapers.API.Entity\ExamPapers.API.Entity.csproj" />
+    </ItemGroup>
+
 </Project>
