@@ -1,9 +1,12 @@
-using System.Collections.Specialized;
+using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using ExamPapers.API.Client.Extensions;
-using ExamPapers.API.Entity;
 
 namespace ExamPapers.API.Client;
 

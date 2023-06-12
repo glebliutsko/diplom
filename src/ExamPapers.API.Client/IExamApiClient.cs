@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
 namespace ExamPapers.API.Client;
 
 public interface IExamApiClient

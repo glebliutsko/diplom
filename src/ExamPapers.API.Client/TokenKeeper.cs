@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Net.Http.Headers;
 using ExamPapers.API.Entity;
 
@@ -6,8 +7,9 @@ namespace ExamPapers.API.Client;
 public class TokenKeeper
 {
     private readonly HttpClient _httpClient;
-    
+
     private TokenResponse? _token;
+
     public TokenResponse? Token
     {
         private get => _token;
@@ -17,7 +19,7 @@ public class TokenKeeper
             UpdateHeaders();
         }
     }
-    
+
     public bool IsAuthorized => Token != null;
 
     public TokenKeeper(HttpClient httpClient)
@@ -29,9 +31,8 @@ public class TokenKeeper
     {
         if (_token == null)
             _httpClient.DefaultRequestHeaders.Authorization = null;
-        
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-            "Bearer",
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
             _token!.AccessToken);
     }
 }

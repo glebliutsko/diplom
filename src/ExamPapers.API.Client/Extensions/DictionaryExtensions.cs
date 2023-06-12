@@ -1,4 +1,4 @@
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Web;
 
 namespace ExamPapers.API.Client.Extensions;
