@@ -19,34 +19,34 @@ public class AuthenticationController : ControllerBase
     /// <summary>
     /// Получение токена.
     /// </summary>
-    /// <param name="credential">Учетные данные пользователя</param>
+    /// <param name="credentialRequest">Учетные данные пользователя</param>
     /// <returns></returns>
     /// <response code="200">Успешная авторизация</response>
     /// <response code="401">Неверный логин или пароль</response>
     [HttpGet]
     [Route("[action]")]
-    [ProducesResponseType(typeof(Token), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorsList), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Token([FromQuery] Credential credential)
+    [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorsListResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Token([FromQuery] CredentialRequest credentialRequest)
     {
         if (User.Identity?.IsAuthenticated == true)
         {
-            return StatusCode(StatusCodes.Status403Forbidden, new ErrorsList
+            return StatusCode(StatusCodes.Status403Forbidden, new ErrorsListResponse
             {
                 StatusCode = StatusCodes.Status403Forbidden,
                 ErrorCode = "AlreadyAuthorized",
-                Errors = new List<Error> { new() { Detail = "User already authorized" }}
+                Errors = new List<ErrorResponse> { new() { Detail = "User already authorized" }}
             });
         }
         
-        var user = await _authenticationServices.CheckCredentials(credential.Login, credential.Password);
+        var user = await _authenticationServices.CheckCredentials(credentialRequest.Login, credentialRequest.Password);
         if (user == null)
         {
-            return Unauthorized(new ErrorsList
+            return Unauthorized(new ErrorsListResponse
             {
                 StatusCode = 401,
                 ErrorCode = "InvalidCredential",
-                Errors = new List<Error>
+                Errors = new List<ErrorResponse>
                 { new() { Detail = "Invalid login or password." } }
             });
         }

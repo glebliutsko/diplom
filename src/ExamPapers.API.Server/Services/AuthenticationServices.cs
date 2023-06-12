@@ -29,7 +29,7 @@ public class AuthenticationServices : IAuthenticationServices
     {
     }
 
-    public async Task<User?> CheckCredentials(string login, string password)
+    public async Task<UserResponse?> CheckCredentials(string login, string password)
     {
         var user = await _userDataAccesser.GetByLogin(login);
         if (user == null)
@@ -41,7 +41,7 @@ public class AuthenticationServices : IAuthenticationServices
         return null;
     }
 
-    public async Task<Token> IssueToken(int forUserId)
+    public async Task<TokenResponse> IssueToken(int forUserId)
     {
         var forUser = await _userDataAccesser.GetById(forUserId);
         if (forUser == null)
@@ -62,7 +62,7 @@ public class AuthenticationServices : IAuthenticationServices
         return TokenMapper.OrmModel2ApiEntity(ormToken, forUser);
     }
 
-    public async Task<User?> ValidateToken(string tokenValue)
+    public async Task<UserResponse?> ValidateToken(string tokenValue)
     {
         var token = await _tokenDataAccesser.GetByValue(tokenValue);
 

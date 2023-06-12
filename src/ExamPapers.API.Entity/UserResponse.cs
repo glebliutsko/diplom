@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExamPapers.API.Entity;
 
-public record User
+public record UserResponse
 {
     [Required]
     public required int Id { get; init; }

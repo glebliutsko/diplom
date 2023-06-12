@@ -2,9 +2,9 @@ namespace ExamPapers.API.Server.Mapper;
 
 public static class UserMapper
 {
-    public static User OrmModel2ApiEntity(ORMModels.User user)
+    public static UserResponse OrmModel2ApiEntity(ORMModels.User user)
     {
-        return new User
+        return new UserResponse
         {
             Id = user.Id,
             Login = user.Login,

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExamPapers.API.Entity;
 
-public record Token
+public record TokenResponse
 {
     [Required(AllowEmptyStrings = false)]
     [StringLength(70)]
@@ -11,5 +11,5 @@ public record Token
     [Required]
     public required DateTime Expire { get; init; }
     
-    public required User User { get; init; }
+    public required UserResponse UserResponse { get; init; }
 }

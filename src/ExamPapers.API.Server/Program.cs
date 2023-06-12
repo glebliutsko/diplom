@@ -35,9 +35,9 @@ builder.Services.AddControllers()
         {
             var allErrors = context.ModelState.Values
                 .SelectMany(x => x.Errors)
-                .Select(x => new Error {Detail = x.ErrorMessage});
+                .Select(x => new ErrorResponse {Detail = x.ErrorMessage});
 
-            return new BadRequestObjectResult(new ErrorsList
+            return new BadRequestObjectResult(new ErrorsListResponse
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 ErrorCode = "InvalidDataScheme",

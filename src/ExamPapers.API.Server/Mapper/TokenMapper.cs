@@ -2,20 +2,20 @@ namespace ExamPapers.API.Server.Mapper;
 
 public static class TokenMapper
 {
-    public static Token OrmModel2ApiEntity(ORMModels.Token token, User user)
+    public static TokenResponse OrmModel2ApiEntity(ORMModels.Token token, UserResponse userResponse)
     {
         ArgumentNullException.ThrowIfNull(token);
-        ArgumentNullException.ThrowIfNull(user);
+        ArgumentNullException.ThrowIfNull(userResponse);
         
-        return new Token
+        return new TokenResponse
         {
             AccessToken = token.Value,
             Expire = token.Expire,
-            User = user
+            UserResponse = userResponse
         };
     }
 
-    public static Token OrmModel2ApiEntity(ORMModels.Token token, ORMModels.User user)
+    public static TokenResponse OrmModel2ApiEntity(ORMModels.Token token, ORMModels.User user)
     {
         return OrmModel2ApiEntity(token, UserMapper.OrmModel2ApiEntity(user));
     }

@@ -7,8 +7,8 @@ public class TokenKeeper
 {
     private readonly HttpClient _httpClient;
     
-    private Token? _token;
-    public Token? Token
+    private TokenResponse? _token;
+    public TokenResponse? Token
     {
         private get => _token;
         set

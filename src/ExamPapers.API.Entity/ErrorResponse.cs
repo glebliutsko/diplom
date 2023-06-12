@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExamPapers.API.Entity;
 
-public record ErrorsList
+public record ErrorsListResponse
 {
     [Required]
     public required int StatusCode { get; init; }
@@ -11,10 +11,10 @@ public record ErrorsList
     public required string ErrorCode { get; init; }
     
     [Required]
-    public required IEnumerable<Error> Errors { get; init; }
+    public required IEnumerable<ErrorResponse> Errors { get; init; }
 }
 
-public record Error
+public record ErrorResponse
 {
     [Required(AllowEmptyStrings = false)]
     public required string Detail { get; init; }

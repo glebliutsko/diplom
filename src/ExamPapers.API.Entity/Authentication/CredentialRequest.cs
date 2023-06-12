@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExamPapers.API.Entity;
 
-public record Credential
+public record CredentialRequest
 {
     [Required(AllowEmptyStrings = false)]
     public required string Login { get; init; }
