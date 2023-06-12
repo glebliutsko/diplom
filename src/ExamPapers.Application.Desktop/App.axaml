@@ -1,8 +1,15 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="ExamPapers.Application.Desktop.App">
 
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <themes:MaterialTheme BaseTheme="Light" PrimaryColor="LightBlue" SecondaryColor="Amber" />
+        <materialIcons:MaterialIconStyles />
+        
+        <StyleInclude Source="/Styles/Window.axaml" />
+        <StyleInclude Source="/Styles/TextBox.axaml" />
+        <StyleInclude Source="/Styles/Border.axaml" />
     </Application.Styles>
 </Application>

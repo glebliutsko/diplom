@@ -3,16 +3,51 @@
         xmlns:vm="using:ExamPapers.Application.Desktop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d"
-        d:DesignWidth="800"
-        d:DesignHeight="450"
+        Width="650"
+        Height="250"
+        CanResize="False"
         x:Class="ExamPapers.Application.Desktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="ExamPapers.Application.Desktop">
+        Title="Авторизация">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid ColumnDefinitions="Auto, *" VerticalAlignment="Center">
+        <Image Grid.Column="0" Source="/Assets/img/logo.png"
+               Width="200"
+               HorizontalAlignment="Center"
+               Height="200" />
+        
+        <Border Grid.Column="1" Classes="GroupBox RoundAll"
+                Margin="10">
+            <StackPanel>
+                <TextBlock Classes="Headline5"
+                           HorizontalAlignment="Center"
+                           Text="Вход" />
+
+                <TextBlock Classes="Body2"
+                           HorizontalAlignment="Center"
+                           Text="Введите логин и пароль для входа"
+                           Margin="0 0 0 10" />
+
+                <TextBox Classes="outline dense withIcon"
+                         UseFloatingWatermark="True"
+                         assists:TextFieldAssist.Label="Логин" />
+
+                <TextBox Classes="outline dense revealPasswordButton"
+                         UseFloatingWatermark="True"
+                         PasswordChar="*"
+                         assists:TextFieldAssist.Label="Пароль" />
+
+                <Button HorizontalAlignment="Right"
+                        Margin="0 10 0 0"
+                        Content="ВХОД" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </Window>
