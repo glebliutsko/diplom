@@ -37,12 +37,14 @@
 
                 <TextBox Classes="outline dense withIcon"
                          UseFloatingWatermark="True"
-                         assists:TextFieldAssist.Label="Логин" />
+                         assists:TextFieldAssist.Label="Логин"
+                         Text="{Binding Login}"/>
 
                 <TextBox Classes="outline dense revealPasswordButton"
                          UseFloatingWatermark="True"
                          PasswordChar="*"
-                         assists:TextFieldAssist.Label="Пароль" />
+                         assists:TextFieldAssist.Label="Пароль"
+                         Text="{Binding Password}"/>
 
                 <Button HorizontalAlignment="Right"
                         Margin="0 10 0 0"

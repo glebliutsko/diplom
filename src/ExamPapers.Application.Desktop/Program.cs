@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using Avalonia.ReactiveUI;
 using System;
 using ExamPapers.Application.Desktop.Extensions;
 
@@ -23,7 +22,6 @@ class Program
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .SetX11WmClass("ExamPapers")
-            .LogToTrace()
-            .UseReactiveUI();
+            .LogToTrace();
     }
 }
