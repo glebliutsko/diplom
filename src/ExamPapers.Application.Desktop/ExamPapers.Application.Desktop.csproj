@@ -24,4 +24,9 @@
         <PackageReference Include="Material.Avalonia" Version="3.0.0-avalonia11-preview5" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ExamPapers.API.Client\ExamPapers.API.Client.csproj" />
+      <ProjectReference Include="..\ExamPapers.API.Entity\ExamPapers.API.Entity.csproj" />
+    </ItemGroup>
 </Project>

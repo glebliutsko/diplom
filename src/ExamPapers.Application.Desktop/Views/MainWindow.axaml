@@ -55,7 +55,8 @@
                                Text="Пример ошибки" />
                     
                     <Button HorizontalAlignment="Right"
-                            Content="ВХОД" />
+                            Content="ВХОД"
+                            Command="{Binding LoginCommand}" />
                 </StackPanel>
             </StackPanel>
         </Border>
