@@ -1,6 +1,5 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:ExamPapers.Application.Desktop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
@@ -10,12 +9,7 @@
         Height="250"
         CanResize="False"
         x:Class="ExamPapers.Application.Desktop.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
         Title="Авторизация">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
 
     <Grid ColumnDefinitions="Auto, *" VerticalAlignment="Center">
         <Image Grid.Column="0" Source="/Assets/img/logo.png"
@@ -37,14 +31,12 @@
 
                 <TextBox Classes="outline dense withIcon"
                          UseFloatingWatermark="True"
-                         assists:TextFieldAssist.Label="Логин"
-                         Text="{Binding Login}"/>
+                         assists:TextFieldAssist.Label="Логин" />
 
                 <TextBox Classes="outline dense revealPasswordButton"
                          UseFloatingWatermark="True"
                          PasswordChar="*"
-                         assists:TextFieldAssist.Label="Пароль"
-                         Text="{Binding Password}"/>
+                         assists:TextFieldAssist.Label="Пароль" />
 
                 <StackPanel Orientation="Horizontal"
                             Margin="0 10 0 0"
@@ -55,8 +47,7 @@
                                Text="Пример ошибки" />
                     
                     <Button HorizontalAlignment="Right"
-                            Content="ВХОД"
-                            Command="{Binding LoginCommand}" />
+                            Content="ВХОД" />
                 </StackPanel>
             </StackPanel>
         </Border>
