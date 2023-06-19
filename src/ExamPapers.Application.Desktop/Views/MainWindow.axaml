@@ -30,7 +30,7 @@
                            HorizontalAlignment="Center"
                            Text="Вход" />
 
-                <TextBlock Classes="Body2"
+                <TextBlock Classes="Body1"
                            HorizontalAlignment="Center"
                            Text="Введите логин и пароль для входа"
                            Margin="0 0 0 10" />
@@ -46,9 +46,17 @@
                          assists:TextFieldAssist.Label="Пароль"
                          Text="{Binding Password}"/>
 
-                <Button HorizontalAlignment="Right"
-                        Margin="0 10 0 0"
-                        Content="ВХОД" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 10 0 0"
+                            HorizontalAlignment="Right">
+                    <TextBlock Classes="Body1 ErrorMessage"
+                               Margin="0 0 10 0"
+                               VerticalAlignment="Center"
+                               Text="Пример ошибки" />
+                    
+                    <Button HorizontalAlignment="Right"
+                            Content="ВХОД" />
+                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

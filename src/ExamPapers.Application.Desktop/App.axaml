@@ -11,5 +11,6 @@
         <StyleInclude Source="/Styles/Window.axaml" />
         <StyleInclude Source="/Styles/TextBox.axaml" />
         <StyleInclude Source="/Styles/Border.axaml" />
+        <StyleInclude Source="/Styles/TextBlock.axaml" />
     </Application.Styles>
 </Application>
