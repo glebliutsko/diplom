@@ -2,6 +2,7 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using ExamPapers.API.Client.Extensions;
+using ExamPapers.API.Entity;
 
 namespace ExamPapers.API.Client;
 
@@ -70,9 +71,6 @@ public partial class ExamApiClient : IExamApiClient
 
         var httpResponse = await MakeRequest(httpRequest, CancellationToken.None).ConfigureAwait(false);
 
-        if (!httpResponse.IsSuccessStatusCode)
-            throw new Exception("API returned error"); //TODO: Заменить на нормальное исключение
-
         return httpResponse;
     }
 
@@ -89,8 +87,26 @@ public partial class ExamApiClient : IExamApiClient
 
         if (responseContent.Headers.ContentType?.MediaType != "application/json")
             throw new Exception("Unsupported Content-Type");
-
-        return await JsonSerializer.DeserializeAsync<TResponse>(await responseContent.ReadAsStreamAsync(), JSON_OPTION);
+        
+        var streamContent = await responseContent.ReadAsStreamAsync();
+        
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            var errorResponse = await JsonSerializer.DeserializeAsync<ErrorsListResponse>(
+                streamContent,
+                JSON_OPTION);
+            
+            throw new ApiResponseError(
+                "API returned error",
+                responseMessage.StatusCode,
+                errorResponse);
+        }
+        
+        var parsedResult = await JsonSerializer.DeserializeAsync<TResponse>(
+            streamContent,
+            JSON_OPTION);
+        
+        return parsedResult;
     }
 
     public async Task<TResponse?> GetAsync<TResponse>(string urlPath, IDictionary<string, string> queryStringParams)
