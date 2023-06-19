@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ExamPapers.API.Client;
@@ -14,6 +13,8 @@ public partial class MainWindow : Window
 
     private async void LoginButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        using var locker = InputAutoLocker.Lock(LoginButton, LoginTextBox, PasswordTextBox);
+        
         ErrorTextBlock.Text = "";
         
         var login = LoginTextBox.Text;

@@ -1,0 +1,1 @@
+global using ExamPapers.Application.Desktop.Utils;
