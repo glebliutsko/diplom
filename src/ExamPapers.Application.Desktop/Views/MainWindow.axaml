@@ -29,11 +29,13 @@
                            Text="Введите логин и пароль для входа"
                            Margin="0 0 0 10" />
 
-                <TextBox Classes="outline dense withIcon"
+                <TextBox Name="LoginTextBox"
+                         Classes="outline dense withIcon"
                          UseFloatingWatermark="True"
                          assists:TextFieldAssist.Label="Логин" />
 
-                <TextBox Classes="outline dense revealPasswordButton"
+                <TextBox Name="PasswordTextBox" 
+                         Classes="outline dense revealPasswordButton"
                          UseFloatingWatermark="True"
                          PasswordChar="*"
                          assists:TextFieldAssist.Label="Пароль" />
@@ -41,13 +43,16 @@
                 <StackPanel Orientation="Horizontal"
                             Margin="0 10 0 0"
                             HorizontalAlignment="Right">
-                    <TextBlock Classes="Body1 ErrorMessage"
+                    <TextBlock Name="ErrorTextBlock"
+                               Classes="Body1 ErrorMessage"
                                Margin="0 0 10 0"
                                VerticalAlignment="Center"
-                               Text="Пример ошибки" />
+                               Text="" />
                     
-                    <Button HorizontalAlignment="Right"
-                            Content="ВХОД" />
+                    <Button Name="LoginButton"
+                            HorizontalAlignment="Right"
+                            Content="ВХОД"
+                            Click="LoginButton_OnClick"/>
                 </StackPanel>
             </StackPanel>
         </Border>
