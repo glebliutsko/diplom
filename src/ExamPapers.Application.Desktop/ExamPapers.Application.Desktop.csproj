@@ -29,4 +29,8 @@
       <ProjectReference Include="..\ExamPapers.API.Client\ExamPapers.API.Client.csproj" />
       <ProjectReference Include="..\ExamPapers.API.Entity\ExamPapers.API.Entity.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Utils\" />
+    </ItemGroup>
 </Project>

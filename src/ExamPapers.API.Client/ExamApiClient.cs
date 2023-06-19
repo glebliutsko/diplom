@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using ExamPapers.API.Client.Extensions;
 
 namespace ExamPapers.API.Client;
 
-public class ExamApiClient : IExamApiClient
+public partial class ExamApiClient : IExamApiClient
 {
+    private static readonly JsonSerializerOptions JSON_OPTION = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private readonly HttpClient _httpClient;
     private readonly string _baseUrl;
 
     public TokenKeeper Authorization { get; }
-    
+
     public ExamApiClient(HttpClient httpClient, string baseUrl)
     {
         _httpClient = httpClient;
@@ -24,14 +24,14 @@ public class ExamApiClient : IExamApiClient
 
         Authorization = new TokenKeeper(_httpClient);
     }
-    
+
     public ExamApiClient(string baseUrl) : this(new HttpClient(), baseUrl)
     { }
 
     private async Task<HttpResponseMessage> MakeRequest(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
-        
+
         HttpResponseMessage? response;
         try
         {
@@ -43,7 +43,7 @@ public class ExamApiClient : IExamApiClient
         {
             if (cancellationToken.IsCancellationRequested)
                 throw;
-            
+
             throw new Exception("Request timed out", e); //TODO: Заменить на нормальное исключение
         }
         catch (Exception e)
@@ -63,7 +63,7 @@ public class ExamApiClient : IExamApiClient
         var url = $"{_baseUrl}/{urlPath}";
         if (queryStringParams != null)
             url += "?" + queryStringParams.ToQueryString();
-        
+
         var httpRequest = new HttpRequestMessage(method, url);
         if (requestContent != null)
             httpRequest.Content = requestContent;
@@ -72,7 +72,7 @@ public class ExamApiClient : IExamApiClient
 
         if (!httpResponse.IsSuccessStatusCode)
             throw new Exception("API returned error"); //TODO: Заменить на нормальное исключение
-        
+
         return httpResponse;
     }
 
@@ -83,14 +83,14 @@ public class ExamApiClient : IExamApiClient
     {
         using var responseMessage = await MakeRequest(HttpMethod.Get, urlPath, queryStringParams, requestContent);
         var responseContent = responseMessage.Content;
-        
+
         if (responseMessage.StatusCode == HttpStatusCode.NoContent)
             return default;
-        
+
         if (responseContent.Headers.ContentType?.MediaType != "application/json")
             throw new Exception("Unsupported Content-Type");
-        
-        return await JsonSerializer.DeserializeAsync<TResponse>(await responseContent.ReadAsStreamAsync());
+
+        return await JsonSerializer.DeserializeAsync<TResponse>(await responseContent.ReadAsStreamAsync(), JSON_OPTION);
     }
 
     public async Task<TResponse?> GetAsync<TResponse>(string urlPath, IDictionary<string, string> queryStringParams)
@@ -106,7 +106,7 @@ public class ExamApiClient : IExamApiClient
     public async Task<TResponse?> PostAsync<TResponse, TRequest>(string urlPath, TRequest content)
     {
         var jsonContent = JsonSerializer.Serialize(content);
-        
+
         HttpContent requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         return await PostAsync<TResponse>(urlPath, requestContent);
     }
