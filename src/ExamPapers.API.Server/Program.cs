@@ -17,6 +17,7 @@ builder.Services.AddScoped<UserDataAccesser>();
 builder.Services.AddScoped<TokenDataAccesser>();
 
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
+builder.Services.AddScoped<UserServices, UserServices>();
 
 builder.Services.AddAuthentication(TokenAuthOptions.DefaultSchemeName)
     .AddScheme<TokenAuthOptions, TokenAuthenticationHandler>(TokenAuthOptions.DefaultSchemeName, options =>

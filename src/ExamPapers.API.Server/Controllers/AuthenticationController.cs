@@ -1,5 +1,4 @@
 using ExamPapers.API.Server.Services;
-using ExamPapers.API.Server.Utils.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

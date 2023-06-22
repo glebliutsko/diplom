@@ -87,29 +87,28 @@ public partial class ExamApiClient : IExamApiClient
 
         if (responseContent.Headers.ContentType?.MediaType != "application/json")
             throw new Exception("Unsupported Content-Type");
-        
+
         var streamContent = await responseContent.ReadAsStreamAsync();
-        
+
         if (!responseMessage.IsSuccessStatusCode)
         {
-            var errorResponse = await JsonSerializer.DeserializeAsync<ErrorsListResponse>(
-                streamContent,
+            var errorResponse = await JsonSerializer.DeserializeAsync<ErrorsListResponse>(streamContent,
                 JSON_OPTION);
-            
-            throw new ApiResponseError(
-                "API returned error",
+
+            throw new ApiResponseError("API returned error",
                 responseMessage.StatusCode,
                 errorResponse);
         }
-        
-        var parsedResult = await JsonSerializer.DeserializeAsync<TResponse>(
-            streamContent,
+
+        var parsedResult = await JsonSerializer.DeserializeAsync<TResponse>(streamContent,
             JSON_OPTION);
-        
+
         return parsedResult;
     }
 
-    public async Task<TResponse?> GetAsync<TResponse>(string urlPath, IDictionary<string, string> queryStringParams)
+    public async Task<TResponse?> GetAsync<TResponse>(
+        string urlPath,
+        IDictionary<string, string>? queryStringParams = null)
     {
         return await MakeRequestJson<TResponse>(urlPath, queryStringParams);
     }
