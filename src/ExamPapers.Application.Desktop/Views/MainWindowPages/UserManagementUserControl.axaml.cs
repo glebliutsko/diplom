@@ -8,5 +8,13 @@ public partial class UserManagementUserControl : UserControl
     public UserManagementUserControl()
     {
         InitializeComponent();
+
+        UsersItemsControl.ItemsSource = GetAllUsers().Result;
+    }
+
+    private async Task<UserResponse[]> GetAllUsers()
+    {
+        return await ExamApiClientKeeper.Client.GetAllUsers()
+            .ConfigureAwait(false);
     }
 }
