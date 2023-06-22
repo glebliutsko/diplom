@@ -6,6 +6,6 @@ public partial class ExamApiClient
 {
     public async Task<UserResponse> GetMe()
     {
-        return (await GetAsync<UserResponse>("users/me"))!;
+        return (await GetAsync<UserResponse>("users/me").ConfigureAwait(false))!;
     }
 }

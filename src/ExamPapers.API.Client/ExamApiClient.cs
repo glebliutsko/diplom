@@ -79,7 +79,8 @@ public partial class ExamApiClient : IExamApiClient
         IDictionary<string, string>? queryStringParams = null,
         HttpContent? requestContent = null)
     {
-        using var responseMessage = await MakeRequest(HttpMethod.Get, urlPath, queryStringParams, requestContent);
+        using var responseMessage = await MakeRequest(HttpMethod.Get, urlPath, queryStringParams, requestContent)
+            .ConfigureAwait(false);
         var responseContent = responseMessage.Content;
 
         if (responseMessage.StatusCode == HttpStatusCode.NoContent)
@@ -88,20 +89,25 @@ public partial class ExamApiClient : IExamApiClient
         if (responseContent.Headers.ContentType?.MediaType != "application/json")
             throw new Exception("Unsupported Content-Type");
 
-        var streamContent = await responseContent.ReadAsStreamAsync();
+        var streamContent = await responseContent.ReadAsStreamAsync()
+            .ConfigureAwait(false);
 
         if (!responseMessage.IsSuccessStatusCode)
         {
-            var errorResponse = await JsonSerializer.DeserializeAsync<ErrorsListResponse>(streamContent,
-                JSON_OPTION);
+            var errorResponse = await JsonSerializer.DeserializeAsync<ErrorsListResponse>(
+                    streamContent, 
+                    JSON_OPTION)
+                .ConfigureAwait(false);
 
             throw new ApiResponseError("API returned error",
                 responseMessage.StatusCode,
                 errorResponse);
         }
 
-        var parsedResult = await JsonSerializer.DeserializeAsync<TResponse>(streamContent,
-            JSON_OPTION);
+        var parsedResult = await JsonSerializer.DeserializeAsync<TResponse>(
+                streamContent,
+                JSON_OPTION)
+            .ConfigureAwait(false);
 
         return parsedResult;
     }
@@ -110,12 +116,14 @@ public partial class ExamApiClient : IExamApiClient
         string urlPath,
         IDictionary<string, string>? queryStringParams = null)
     {
-        return await MakeRequestJson<TResponse>(urlPath, queryStringParams);
+        return await MakeRequestJson<TResponse>(urlPath, queryStringParams)
+            .ConfigureAwait(false);
     }
 
     public async Task<TResponse?> PostAsync<TResponse>(string urlPath, HttpContent content)
     {
-        return await MakeRequestJson<TResponse>(urlPath, requestContent: content);
+        return await MakeRequestJson<TResponse>(urlPath, requestContent: content)
+            .ConfigureAwait(false);
     }
 
     public async Task<TResponse?> PostAsync<TResponse, TRequest>(string urlPath, TRequest content)
@@ -123,6 +131,7 @@ public partial class ExamApiClient : IExamApiClient
         var jsonContent = JsonSerializer.Serialize(content);
 
         HttpContent requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-        return await PostAsync<TResponse>(urlPath, requestContent);
+        return await PostAsync<TResponse>(urlPath, requestContent)
+            .ConfigureAwait(false);
     }
 }

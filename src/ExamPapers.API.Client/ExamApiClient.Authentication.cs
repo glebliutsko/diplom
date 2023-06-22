@@ -15,6 +15,6 @@ public partial class ExamApiClient
             ["password"] = password
         };
 
-        return (await GetAsync<TokenResponse>("authentication/token", requestParams))!;
+        return (await GetAsync<TokenResponse>("authentication/token", requestParams).ConfigureAwait(false))!;
     }
 }
