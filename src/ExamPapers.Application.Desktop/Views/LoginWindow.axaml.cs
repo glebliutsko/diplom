@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using ExamPapers.API.Client;
 
@@ -30,6 +31,17 @@ public partial class LoginWindow : Window
         {
             var token = await ExamApiClientKeeper.Client.Token(login, password);
             ExamApiClientKeeper.Client.Authorization.Token = token;
+
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            
+            if (Avalonia.Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime
+                desktopLifetime)
+            {
+                desktopLifetime.MainWindow = mainWindow;
+            }
+
+            Close();
         }
         catch (ApiResponseError error)
         {
