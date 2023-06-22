@@ -46,4 +46,12 @@ public class UsersController : ControllerBase
     {
         return await ReturnUserById(id);
     }
+
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    [Route("all")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        return Ok(await _userServices.GetAllUser());
+    }
 }

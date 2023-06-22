@@ -20,4 +20,10 @@ public class UserServices
 
         return UserMapper.OrmModel2ApiEntity(user);
     }
+
+    public async Task<List<UserResponse>> GetAllUser()
+    {
+        var users = await _userDataAccesser.GetAll();
+        return users.Select(UserMapper.OrmModel2ApiEntity).ToList();
+    }
 }

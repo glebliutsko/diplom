@@ -8,4 +8,9 @@ public partial class ExamApiClient
     {
         return (await GetAsync<UserResponse>("users/me").ConfigureAwait(false))!;
     }
+    
+    public async Task<UserResponse[]> GetAllUsers()
+    {
+        return (await GetAsync<UserResponse[]>("users/all").ConfigureAwait(false))!;
+    }
 }

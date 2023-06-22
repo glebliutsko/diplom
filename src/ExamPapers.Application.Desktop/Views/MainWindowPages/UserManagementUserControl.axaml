@@ -49,10 +49,16 @@
             </ScrollViewer>
 
             <StackPanel Grid.Column="1"
-                        HorizontalAlignment="Right">
+                        VerticalAlignment="Top">
                 <Button Theme="{StaticResource FlatButton}"
                         Padding="0">
                     <icon:MaterialIcon Kind="Add"
+                                       Width="30"
+                                       Height="30" />
+                </Button>
+                <Button Theme="{StaticResource FlatButton}"
+                        Padding="0">
+                    <icon:MaterialIcon Kind="FileImport"
                                        Width="30"
                                        Height="30" />
                 </Button>
