@@ -8,4 +8,12 @@
     <Style Selector="Border.RoundAll">
         <Setter Property="CornerRadius" Value="10"/>
     </Style>
+    
+    <Style Selector="Border.RoundRight">
+        <Setter Property="CornerRadius" Value="0 10 10 0"/>
+    </Style>
+    
+    <Style Selector="Border.RoundLeft">
+        <Setter Property="CornerRadius" Value="10 0 0 10"/>
+    </Style>
 </Styles>

@@ -2,8 +2,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" Width="800" Height="450"
         x:Class="ExamPapers.Application.Desktop.Views.MainWindow"
         Title="ExamPapers">
-        
+        <Grid ColumnDefinitions="150,*">
+                <Border Grid.Column="0"
+                        Classes="GroupBox RoundRight"
+                        Margin="0 10">
+                        <Grid RowDefinitions="100,Auto,*">
+                                <Image Grid.Row="0" Source="/Assets/img/logo.png" />
+                                
+                                <TextBlock Grid.Row="1"
+                                           Classes="Subtitle1"
+                                           FontWeight="Bold"
+                                           Text="Главное меню"
+                                           HorizontalAlignment="Center" />
+                                
+                                <ListBox Grid.Row="2" Margin="0">
+                                        <ListBoxItem Padding="3">Пользователи</ListBoxItem>
+                                </ListBox>
+                        </Grid>
+                </Border>
+                
+                <Border Grid.Column="1"
+                        Classes="GroupBox RoundLeft"
+                        Margin="20 10 0 10">
+                        
+                </Border>
+        </Grid>
 </Window>
