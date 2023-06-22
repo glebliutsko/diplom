@@ -24,12 +24,12 @@ public class UsersController : ControllerBase
             {
                 StatusCode = StatusCodes.Status404NotFound,
                 ErrorCode = "UserNotFound",
-                Errors = new List<ErrorResponse> { new() {Detail = $"User Id {id} not found"} }
+                Errors = new List<ErrorResponse> { new() { Detail = $"User Id {id} not found" } }
             });
-        
+
         return Ok(user);
     }
-    
+
     [HttpGet]
     [Authorize]
     [Route("[action]")]
@@ -53,5 +53,22 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> GetAllUsers()
     {
         return Ok(await _userServices.GetAllUser());
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [Route("")]
+    public async Task<IActionResult> CreateUser(NewUserRequest newUser)
+    {
+        var result = await _userServices.CreateNewUser(newUser);
+        if (result)
+            return Ok(new SuccessResponse());
+
+        return BadRequest(new ErrorsListResponse
+        {
+            StatusCode = StatusCodes.Status400BadRequest,
+            ErrorCode = "CreateUserFailed",
+            Errors = new List<ErrorResponse> { new() { Detail = $"Error on create user" } }
+        });
     }
 }
