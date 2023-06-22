@@ -51,7 +51,8 @@
             <StackPanel Grid.Column="1"
                         VerticalAlignment="Top">
                 <Button Theme="{StaticResource FlatButton}"
-                        Padding="0">
+                        Padding="0"
+                        Click="CreateUserButton_OnClick">
                     <icon:MaterialIcon Kind="Add"
                                        Width="30"
                                        Height="30" />

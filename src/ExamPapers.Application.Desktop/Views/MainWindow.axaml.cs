@@ -31,7 +31,7 @@ public partial class MainWindow : Window
                     new CustomMenuItem(
                         MaterialIconKind.Users, 
                         "Пользователи", 
-                        () => new UserManagementUserControl())
+                        () => new UserManagementUserControl(this))
                 };
                 break;
             case "Teacher":
