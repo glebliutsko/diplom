@@ -16,7 +16,6 @@ public class User
     [StringLength(255)]
     public string Login { get; set; }
 
-    [Required]
     [StringLength(144)]
     public string PasswordHash { get; set; }
     
