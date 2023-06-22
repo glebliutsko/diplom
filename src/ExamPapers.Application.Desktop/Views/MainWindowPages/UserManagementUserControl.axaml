@@ -29,13 +29,17 @@
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Right">
                                     <Button Theme="{StaticResource FlatButton}"
-                                            Padding="0">
+                                            Padding="0"
+                                            Click="EditUserButton_OnClick"
+                                            Tag="{Binding}">
                                         <icon:MaterialIcon Kind="Edit"
                                                            Width="25"
                                                            Height="25" />
                                     </Button>
                                     <Button Theme="{StaticResource FlatButton}"
-                                            Padding="0">
+                                            Padding="0"
+                                            Click="DeleteButton_OnClick"
+                                            Tag="{Binding}">
                                         <icon:MaterialIcon Kind="Delete"
                                                            Foreground="Red"
                                                            Width="25"
@@ -58,7 +62,8 @@
                                        Height="30" />
                 </Button>
                 <Button Theme="{StaticResource FlatButton}"
-                        Padding="0">
+                        Padding="0"
+                        Click="ImportButton_OnClick">
                     <icon:MaterialIcon Kind="FileImport"
                                        Width="30"
                                        Height="30" />

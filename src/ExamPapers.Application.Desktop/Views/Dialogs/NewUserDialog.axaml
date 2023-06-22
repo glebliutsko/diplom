@@ -17,14 +17,14 @@
                 <icon:MaterialIcon Kind="Account"
                                    Width="50"
                                    Height="50" />
-                <TextBlock Classes="Headline5"
+                <TextBlock Name="HeaderTextBlock" Classes="Headline5"
                            Text="Новый пользователь"
                            VerticalAlignment="Center"
                            Margin="5 0 0 0" />
             </StackPanel>
             <TextBlock Classes="Subtitle1"
                        FontWeight="Bold"
-                       Text="Заполните данные нового пользователя." />
+                       Text="Заполните данные пользователя." />
 
             <TextBlock Classes="Body1"
                        Text="Основная информация"

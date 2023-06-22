@@ -71,4 +71,31 @@ public class UsersController : ControllerBase
             Errors = new List<ErrorResponse> { new() { Detail = $"Error on create user" } }
         });
     }
+
+    [HttpPut]
+    [Authorize(Roles = "Admin")]
+    [Route("{id:int}")]
+    public async Task<IActionResult> EditUser(int id, NewUserRequest editedUser)
+    {
+        var result = await _userServices.EditUser(id, editedUser);
+        if (result)
+            return Ok(new SuccessResponse());
+
+        return BadRequest(new ErrorsListResponse
+        {
+            StatusCode = StatusCodes.Status400BadRequest,
+            ErrorCode = "EditUserFailed",
+            Errors = new List<ErrorResponse> { new() { Detail = $"Error on edit user" } }
+        });
+    }
+
+    [HttpDelete]
+    [Authorize(Roles = "Admin")]
+    [Route("{id:int}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        await _userServices.DeleteUser(id);
+        return Ok(new SuccessResponse());
+    }
 }
+    

@@ -120,6 +120,14 @@ public partial class ExamApiClient : IExamApiClient
         return await MakeRequestJson<TResponse>(urlPath, HttpMethod.Get, queryStringParams)
             .ConfigureAwait(false);
     }
+    
+    public async Task<TResponse?> DeleteAsync<TResponse>(
+        string urlPath,
+        IDictionary<string, string>? queryStringParams = null)
+    {
+        return await MakeRequestJson<TResponse>(urlPath, HttpMethod.Delete, queryStringParams)
+            .ConfigureAwait(false);
+    }
 
     public async Task<TResponse?> PostAsync<TResponse>(string urlPath, HttpContent content)
     {
@@ -133,6 +141,21 @@ public partial class ExamApiClient : IExamApiClient
 
         HttpContent requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         return await PostAsync<TResponse>(urlPath, requestContent)
+            .ConfigureAwait(false);
+    }
+    
+    public async Task<TResponse?> PutAsync<TResponse>(string urlPath, HttpContent content)
+    {
+        return await MakeRequestJson<TResponse>(urlPath, HttpMethod.Put, requestContent: content)
+            .ConfigureAwait(false);
+    }
+    
+    public async Task<TResponse?> PutAsync<TResponse, TRequest>(string urlPath, TRequest content)
+    {
+        var jsonContent = JsonSerializer.Serialize(content);
+
+        HttpContent requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        return await PutAsync<TResponse>(urlPath, requestContent)
             .ConfigureAwait(false);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ExamPapers.API.Entity;
@@ -12,12 +13,29 @@ public partial class NewUserDialog : Window
 
     public NewUserRequest? Result { get; private set; } = null;
 
-    public NewUserDialog()
+    public NewUserDialog(UserResponse? user = null)
     {
         InitializeComponent();
 
         _groups = GetAllGroups().Result;
         GroupComboBox.ItemsSource = _groups;
+
+        if (user != null)
+        {
+            HeaderTextBlock.Text = "Изменение пользователя";
+            
+            FullNameTextBox.Text = user.FullName;
+            LoginTextBox.Text = user.Login;
+            RoleComboBox.SelectedIndex = user.Role switch
+            {
+                "Admin" => 0,
+                "Teacher" => 1,
+                "Student" => 2,
+                _ => -1
+            };
+            if (user.Group != null)
+                GroupComboBox.SelectedIndex = _groups.ToList().FindIndex(x => x.Id == user.Group?.Id);
+        }
     }
 
     private async Task<GroupResponse[]> GetAllGroups()
@@ -73,7 +91,7 @@ public partial class NewUserDialog : Window
 
         if (group != null)
         {
-            newUser.GroupName = group.Name;
+            newUser.GroupId = group.Id;
         }
 
         Result = newUser;

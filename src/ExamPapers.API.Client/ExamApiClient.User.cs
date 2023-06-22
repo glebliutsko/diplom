@@ -18,4 +18,14 @@ public partial class ExamApiClient
     {
         return (await PostAsync<SuccessResponse, NewUserRequest>("users", newUser).ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> EditUser(int id, NewUserRequest editedUser)
+    {
+        return (await PutAsync<SuccessResponse, NewUserRequest>($"users/{id}", editedUser).ConfigureAwait(false))!;
+    }
+    
+    public async Task<SuccessResponse> DeleteUser(int id)
+    {
+        return (await DeleteAsync<SuccessResponse>($"users/{id}").ConfigureAwait(false))!;
+    }
 }
