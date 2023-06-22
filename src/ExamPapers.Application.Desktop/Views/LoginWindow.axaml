@@ -8,7 +8,7 @@
         Width="650"
         Height="250"
         CanResize="False"
-        x:Class="ExamPapers.Application.Desktop.Views.MainWindow"
+        x:Class="ExamPapers.Application.Desktop.Views.LoginWindow"
         Title="Авторизация">
 
     <Grid ColumnDefinitions="Auto, *" VerticalAlignment="Center">
