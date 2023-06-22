@@ -22,6 +22,7 @@ public class UserDataAccesser : IDataAccesser<ORMModels.User>
     {
         return await _db.Users
             .Include(x => x.Group)
+            .OrderBy(x => x.Id)
             .ToArrayAsync();
     }
 

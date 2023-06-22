@@ -4,17 +4,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:entity="clr-namespace:ExamPapers.API.Entity;assembly=ExamPapers.API.Entity"
         mc:Ignorable="d"
         Width="480"
-        Height="475"
-        CanResize="False"
+        Height="540"
         x:Class="ExamPapers.Application.Desktop.Views.Dialogs.NewUserDialog"
         Title="Создание нового пользователя"
         Padding="5">
     <Grid RowDefinitions="*,Auto">
         <StackPanel Grid.Row="0">
             <StackPanel Orientation="Horizontal">
-                <icon:MaterialIcon Kind="AccountPlus"
+                <icon:MaterialIcon Kind="Account"
                                    Width="50"
                                    Height="50" />
                 <TextBlock Classes="Headline5"
@@ -46,6 +46,16 @@
                 <ComboBoxItem>Преподаватель</ComboBoxItem>
                 <ComboBoxItem>Студент</ComboBoxItem>
             </ComboBox>
+            
+            <ComboBox Name="GroupComboBox"
+                      Classes="Outline"
+                      assists:ComboBoxAssist.Label="Группа">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="entity:GroupResponse">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <TextBlock Classes="Body1"
                        Margin="0 15 0 0">
@@ -65,12 +75,22 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1"
-                    Orientation="Horizontal">
-            <Button Theme="{StaticResource OutlineButton}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <TextBlock Name="ErrorTextBlock"
+                       Classes="Body1 ErrorMessage"
+                       Margin="0 0 10 0"
+                       VerticalAlignment="Center" />
+            
+            <Button Name="CancelButton"
+                    Theme="{StaticResource OutlineButton}"
                     Content="Отменить"
-                    Margin="0 0 5 0" />
+                    Margin="0 0 10 0"
+                    Click="CancelButton_OnClick"/>
 
-            <Button Content="Сохранить" />
+            <Button Name="AcceptButton"
+                    Content="Сохранить"
+                    Click="AcceptButton_OnClick"/>
         </StackPanel>
     </Grid>
 </Window>

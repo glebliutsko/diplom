@@ -76,10 +76,11 @@ public partial class ExamApiClient : IExamApiClient
 
     private async Task<TResponse?> MakeRequestJson<TResponse>(
         string urlPath,
+        HttpMethod method,
         IDictionary<string, string>? queryStringParams = null,
         HttpContent? requestContent = null)
     {
-        using var responseMessage = await MakeRequest(HttpMethod.Get, urlPath, queryStringParams, requestContent)
+        using var responseMessage = await MakeRequest(method, urlPath, queryStringParams, requestContent)
             .ConfigureAwait(false);
         var responseContent = responseMessage.Content;
 
@@ -116,13 +117,13 @@ public partial class ExamApiClient : IExamApiClient
         string urlPath,
         IDictionary<string, string>? queryStringParams = null)
     {
-        return await MakeRequestJson<TResponse>(urlPath, queryStringParams)
+        return await MakeRequestJson<TResponse>(urlPath, HttpMethod.Get, queryStringParams)
             .ConfigureAwait(false);
     }
 
     public async Task<TResponse?> PostAsync<TResponse>(string urlPath, HttpContent content)
     {
-        return await MakeRequestJson<TResponse>(urlPath, requestContent: content)
+        return await MakeRequestJson<TResponse>(urlPath, HttpMethod.Post, requestContent: content)
             .ConfigureAwait(false);
     }
 

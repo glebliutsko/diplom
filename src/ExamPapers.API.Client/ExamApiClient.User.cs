@@ -13,4 +13,9 @@ public partial class ExamApiClient
     {
         return (await GetAsync<UserResponse[]>("users/all").ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> CreateUser(NewUserRequest newUser)
+    {
+        return (await PostAsync<SuccessResponse, NewUserRequest>("users", newUser).ConfigureAwait(false))!;
+    }
 }

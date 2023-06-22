@@ -1,3 +1,4 @@
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ExamPapers.API.Entity;
@@ -14,6 +15,11 @@ public partial class UserManagementUserControl : UserControl
         _mainWindow = mainWindow;
         InitializeComponent();
 
+        LoadUsers();
+    }
+
+    private void LoadUsers()
+    {
         UsersItemsControl.ItemsSource = GetAllUsers().Result;
     }
 
@@ -22,9 +28,23 @@ public partial class UserManagementUserControl : UserControl
         return await ExamApiClientKeeper.Client.GetAllUsers()
             .ConfigureAwait(false);
     }
-
-    private void CreateUserButton_OnClick(object? sender, RoutedEventArgs e)
+    
+    private async Task<SuccessResponse> CreateUser(NewUserRequest newUser)
     {
-        new NewUserDialog().ShowDialog(_mainWindow);
+        return await ExamApiClientKeeper.Client.CreateUser(newUser)
+            .ConfigureAwait(false);
+    }
+    
+    private async void CreateUserButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var newUserDialog = new NewUserDialog();
+        await newUserDialog.ShowDialog(_mainWindow);
+        
+        if (newUserDialog.Result == null)
+            return;
+
+        var result = await CreateUser(newUserDialog.Result);
+        
+        LoadUsers();
     }
 }
