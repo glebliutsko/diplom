@@ -40,9 +40,18 @@ public class UserServices
 
         ORMModels.Group? group = null;
         if (newUser.GroupName != null)
+        {
             group = await _db.Groups.FirstOrDefaultAsync(x => x.Name == newUser.GroupName);
-        else
+
+            if (group == null)
+            {
+                group = new ORMModels.Group { Name = newUser.GroupName };
+            }
+        }
+        else if (newUser.GroupId != null)
+        {
             group = await _db.Groups.FirstOrDefaultAsync(x => x.Id == newUser.GroupId);
+        }
 
         var dbUser = new ORMModels.User
         {
