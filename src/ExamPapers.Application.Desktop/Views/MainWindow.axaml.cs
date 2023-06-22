@@ -1,13 +1,14 @@
 using Avalonia.Controls;
 using ExamPapers.Application.Desktop.Views.MainMenuItems;
+using ExamPapers.Application.Desktop.Views.MainWindowPages;
 using Material.Icons;
 
 namespace ExamPapers.Application.Desktop.Views;
 
 public partial class MainWindow : Window
 {
-    private readonly IMainMenuItem[] _menuItems; 
-    
+    private readonly IMainMenuItem[] _menuItems;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -15,7 +16,7 @@ public partial class MainWindow : Window
         _menuItems = GetItemsMenu().Result;
         MainMenuListBox.ItemsSource = _menuItems;
     }
-    
+
     private async Task<IMainMenuItem[]> GetItemsMenu()
     {
         var currentUser = await ExamApiClientKeeper.Client.GetMe()
@@ -25,7 +26,13 @@ public partial class MainWindow : Window
         switch (currentUser.Role)
         {
             case "Admin":
-                menuItems = new IMainMenuItem[] { new CustomMenuItem(MaterialIconKind.Users, "Пользователи", () => new TextBox()) };
+                menuItems = new IMainMenuItem[]
+                {
+                    new CustomMenuItem(
+                        MaterialIconKind.Users, 
+                        "Пользователи", 
+                        () => new UserManagementUserControl())
+                };
                 break;
             case "Teacher":
                 break;

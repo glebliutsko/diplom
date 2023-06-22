@@ -41,10 +41,8 @@
             </Grid>
         </Border>
 
-        <Border Grid.Column="1"
-                Classes="GroupBox RoundLeft"
-                Margin="20 10 0 10">
-            <ContentControl Name="MainContentControl" />
-        </Border>
+
+        <ContentControl Grid.Column="1"
+                        Name="MainContentControl" />
     </Grid>
 </Window>
