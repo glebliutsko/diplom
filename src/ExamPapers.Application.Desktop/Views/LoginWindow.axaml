@@ -16,7 +16,7 @@
                Width="200"
                HorizontalAlignment="Center"
                Height="200" />
-        
+
         <Border Grid.Column="1" Classes="GroupBox RoundAll"
                 Margin="10">
             <StackPanel>
@@ -34,7 +34,7 @@
                          UseFloatingWatermark="True"
                          assists:TextFieldAssist.Label="Логин" />
 
-                <TextBox Name="PasswordTextBox" 
+                <TextBox Name="PasswordTextBox"
                          Classes="outline dense revealPasswordButton"
                          UseFloatingWatermark="True"
                          PasswordChar="*"
@@ -48,11 +48,11 @@
                                Margin="0 0 10 0"
                                VerticalAlignment="Center"
                                Text="" />
-                    
+
                     <Button Name="LoginButton"
                             HorizontalAlignment="Right"
                             Content="ВХОД"
-                            Click="LoginButton_OnClick"/>
+                            Click="LoginButton_OnClick" />
                 </StackPanel>
             </StackPanel>
         </Border>

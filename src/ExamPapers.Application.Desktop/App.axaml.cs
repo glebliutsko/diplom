@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ExamPapers.Application.Desktop.Views;
