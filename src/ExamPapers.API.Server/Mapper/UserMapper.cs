@@ -8,7 +8,8 @@ public static class UserMapper
         {
             Id = user.Id,
             Login = user.Login,
-            FullName = user.FullName
+            FullName = user.FullName,
+            Role = user.Role.ToString()
         };
     }
 }

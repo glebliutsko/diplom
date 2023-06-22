@@ -35,7 +35,8 @@ public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthOptions
         {
             new(ClaimTypes.NameIdentifier, authorizedUser.Id.ToString()),
             new(ClaimTypes.Name, authorizedUser.Login),
-            new("Token", tokenHeaderSpited[1])
+            new("Token", tokenHeaderSpited[1]),
+            new(ClaimTypes.Role, authorizedUser.Role)
         };
 
         var identity = new ClaimsIdentity(claims, Scheme.Name);

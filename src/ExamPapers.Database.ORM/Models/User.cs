@@ -19,6 +19,9 @@ public class User
     [Required]
     [StringLength(144)]
     public string PasswordHash { get; set; }
+    
+    [Required]
+    public Role Role { get; set; }
 
     public ICollection<Token> Tokens { get; set; }
 }
