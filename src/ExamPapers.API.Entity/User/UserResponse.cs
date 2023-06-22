@@ -18,4 +18,6 @@ public record UserResponse
     [Required(AllowEmptyStrings = false)]
     [StringLength(30)]
     public required string Role { get; init; }
+
+    public GroupResponse? Group { get; set; }
 }

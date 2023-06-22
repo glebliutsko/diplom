@@ -18,6 +18,9 @@ public class User
 
     [StringLength(144)]
     public string PasswordHash { get; set; }
+
+    public int? GroupId { get; set; }
+    public Group Group { get; set; }
     
     [Required]
     public Role Role { get; set; }

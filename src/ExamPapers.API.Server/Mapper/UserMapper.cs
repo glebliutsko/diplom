@@ -9,7 +9,8 @@ public static class UserMapper
             Id = user.Id,
             Login = user.Login,
             FullName = user.FullName,
-            Role = user.Role.ToString()
+            Role = user.Role.ToString(),
+            Group = user.Group != null ? GroupMapper.OrmModel2ApiEntity(user.Group) : null
         };
     }
 }

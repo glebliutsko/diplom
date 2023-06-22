@@ -9,11 +9,6 @@ public class ExamPapersDbContext : DbContext
     {  }
 
     public DbSet<User> Users { get; set; }
-
     public DbSet<Token> Tokens { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-    }
+    public DbSet<Group> Groups { get; set; }
 }

@@ -1,17 +1,20 @@
 using ExamPapers.API.Server.DataAccess;
 using ExamPapers.API.Server.Mapper;
 using ExamPapers.API.Server.Utils.PasswordHash;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExamPapers.API.Server.Services;
 
 public class UserServices
 {
     private readonly UserDataAccesser _userDataAccesser;
+    private readonly ExamPapersDbContext _db;
     private readonly IPasswordHasher _hasher;
 
-    public UserServices(UserDataAccesser userDataAccesser)
+    public UserServices(UserDataAccesser userDataAccesser, ExamPapersDbContext db)
     {
         _userDataAccesser = userDataAccesser;
+        _db = db;
         _hasher = new PasswordHasher();
     }
 
@@ -35,11 +38,18 @@ public class UserServices
         if (!Enum.TryParse(newUser.Role, out ORMModels.Role role))
             return false;
 
+        ORMModels.Group? group = null;
+        if (newUser.GroupName != null)
+            group = await _db.Groups.FirstOrDefaultAsync(x => x.Name == newUser.GroupName);
+        else
+            group = await _db.Groups.FirstOrDefaultAsync(x => x.Id == newUser.GroupId);
+
         var dbUser = new ORMModels.User
         {
             FullName = newUser.FullName,
             Login = newUser.Login,
-            Role = role
+            Role = role,
+            Group = group
         };
 
         if (!string.IsNullOrEmpty(newUser.Password))

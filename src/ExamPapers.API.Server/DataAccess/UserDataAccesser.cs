@@ -14,17 +14,22 @@ public class UserDataAccesser : IDataAccesser<ORMModels.User>
     public async Task<ORMModels.User?> GetByLogin(string login)
     {
         return await _db.Users
+            .Include(x => x.Group)
             .FirstOrDefaultAsync(x => x.Login == login);
     }
 
     public async Task<IEnumerable<ORMModels.User>> GetAll()
     {
-        return await _db.Users.ToArrayAsync();
+        return await _db.Users
+            .Include(x => x.Group)
+            .ToArrayAsync();
     }
 
     public async Task<ORMModels.User?> GetById(int id)
     {
-        return await _db.Users.FindAsync(id);
+        return await _db.Users
+            .Include(x => x.Group)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task Create(ORMModels.User item)

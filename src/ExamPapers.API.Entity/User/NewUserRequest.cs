@@ -17,4 +17,7 @@ public record NewUserRequest
     public required string Role { get; init; }
 
     public string? Password { get; set; }
+
+    public string? GroupName { get; set; }
+    public int? GroupId { get; set; }
 }
