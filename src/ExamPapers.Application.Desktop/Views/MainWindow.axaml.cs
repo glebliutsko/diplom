@@ -28,13 +28,21 @@ public partial class MainWindow : Window
             case "Admin":
                 menuItems = new IMainMenuItem[]
                 {
-                    new CustomMenuItem(
-                        MaterialIconKind.Users, 
-                        "Пользователи", 
-                        () => new UserManagementUserControl(this))
+                    new CustomMenuItem(MaterialIconKind.Users,
+                        "Пользователи",
+                        () => new UserManagementUserControl(this)),
+                    new CustomMenuItem(MaterialIconKind.Group,
+                        "Группы",
+                        () => null)
                 };
                 break;
             case "Teacher":
+                menuItems = new IMainMenuItem[]
+                {
+                    new CustomMenuItem(MaterialIconKind.Help,
+                        "Банк вопросов",
+                        () => new BankQuestionsUserControl(this))
+                };
                 break;
             case "Student":
                 break;
