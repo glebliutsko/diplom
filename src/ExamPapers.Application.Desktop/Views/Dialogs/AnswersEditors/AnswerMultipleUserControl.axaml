@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:answersEditors="clr-namespace:ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors.AnswerMultipleUserControl">
+    <Grid RowDefinitions="*, Auto">
+        <ScrollViewer Grid.Row="0"
+                      VerticalScrollBarVisibility="Auto"
+                      Classes="classic no-auto-hide">
+            <ItemsControl Name="AnswersItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="answersEditors:AnswerViewModel">
+                        <Grid ColumnDefinitions="25,*">
+                            <CheckBox Grid.Column="0"
+                                         VerticalAlignment="Center"
+                                         IsChecked="{Binding IsCorrect}" />
+                            <TextBox Grid.Column="1"
+                                     VerticalAlignment="Center"
+                                     UseFloatingWatermark="False"
+                                     Watermark="Ответ"
+                                     Text="{Binding Text}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Button Grid.Row="1"
+                Theme="{StaticResource FlatButton}"
+                Padding="0"
+                Margin="0 5 0 0"
+                Click="AddAnswerButton_OnClick"
+                Content="ДОБАВИТЬ" />
+    </Grid>
+</UserControl>

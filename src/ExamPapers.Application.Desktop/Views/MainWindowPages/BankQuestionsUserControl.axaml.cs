@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ExamPapers.API.Entity;
+using ExamPapers.Application.Desktop.Views.Dialogs;
 
 namespace ExamPapers.Application.Desktop.Views.MainWindowPages;
 
@@ -28,8 +29,11 @@ public partial class BankQuestionsUserControl : UserControl
             .ConfigureAwait(false);
     }
 
-    private void AddQuestionButton_OnClick(object? sender, RoutedEventArgs e)
+    private async void AddQuestionButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        var newQuestionDialog = new NewQuestionDialog();
+        await newQuestionDialog.ShowDialog(_mainWindow);
         
+        LoadQuestion();
     }
 }
