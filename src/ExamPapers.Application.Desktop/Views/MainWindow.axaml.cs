@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using ExamPapers.Application.Desktop.Views.MainMenuItems;
 using ExamPapers.Application.Desktop.Views.MainWindowPages;
@@ -41,7 +42,10 @@ public partial class MainWindow : Window
                 {
                     new CustomMenuItem(MaterialIconKind.Help,
                         "Банк вопросов",
-                        () => new BankQuestionsUserControl(this))
+                        () => new BankQuestionsUserControl(this)),
+                    new CustomMenuItem(MaterialIconKind.HelpBoxMultiple,
+                        "Тесты",
+                        () => new TestsUserControl(this))
                 };
                 break;
             case "Student":

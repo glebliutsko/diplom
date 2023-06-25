@@ -2,24 +2,23 @@ namespace ExamPapers.Database.ORM.Models;
 
 #nullable disable
 
-[Table("questions")]
-public class Question
+[Table("tests")]
+public class Test
 {
     [Key]
     public int Id { get; set; }
-    
-    [Required]
-    public QuestionType Type { get; set; }
 
     [Required(AllowEmptyStrings = false)]
-    public string Text { get; set; }
+    [StringLength(100)]
+    public string Title { get; set; }
 
-    public List<Answer> Answers { get; set; }
-
+    [StringLength(255)]
+    public string Description  { get; set; }
+    
     [ForeignKey(nameof(Owner))]
     public int OwnerId { get; set; }
     [Required]
     public User Owner { get; set; }
-
-    public List<QuestionsInTest> Tests { get; set; }
+    
+    public List<QuestionsInTest> QuestionsInTests { get; set; }
 }

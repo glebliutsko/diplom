@@ -15,3 +15,12 @@ public record QuestionResponse
 
     public List<AnswerResponse> Answers { get; init; }
 }
+
+public record QuestionShortResponse
+{
+    [Required]
+    public required int Id { get; init; }
+
+    [Required(AllowEmptyStrings = false)]
+    public required string Text { get; init; }
+}

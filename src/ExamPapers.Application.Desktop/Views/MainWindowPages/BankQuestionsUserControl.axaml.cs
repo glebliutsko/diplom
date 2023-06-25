@@ -20,10 +20,10 @@ public partial class BankQuestionsUserControl : UserControl
 
     private void LoadQuestion()
     {
-        QuestionItemsControl.ItemsSource = GetAllUsers().Result;
+        QuestionItemsControl.ItemsSource = GetQuestionUsers().Result;
     }
 
-    private async Task<QuestionResponse[]> GetAllUsers()
+    private async Task<QuestionResponse[]> GetQuestionUsers()
     {
         return await ExamApiClientKeeper.Client.GetAllQuestion()
             .ConfigureAwait(false);
