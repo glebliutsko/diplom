@@ -26,4 +26,5 @@ public class User
     public Role Role { get; set; }
 
     public ICollection<Token> Tokens { get; set; }
+    public List<Question> Questions { get; set; }
 }

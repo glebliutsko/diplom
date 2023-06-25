@@ -3,6 +3,7 @@ using System;
 using ExamPapers.Database.ORM;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExamPapers.Database.ORM.Migrations
 {
     [DbContext(typeof(ExamPapersDbContext))]
-    partial class ExamPapersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230624234844_QuestionAndAnswer2")]
+    partial class QuestionAndAnswer2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace ExamPapers.Database.ORM.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("text");
@@ -84,8 +84,6 @@ namespace ExamPapers.Database.ORM.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("questions");
                 });
@@ -160,17 +158,6 @@ namespace ExamPapers.Database.ORM.Migrations
                         .IsRequired();
 
                     b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("ExamPapers.Database.ORM.Models.Question", b =>
-                {
-                    b.HasOne("ExamPapers.Database.ORM.Models.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("ExamPapers.Database.ORM.Models.Token", b =>

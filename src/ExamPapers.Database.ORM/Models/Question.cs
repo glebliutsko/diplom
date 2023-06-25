@@ -15,4 +15,9 @@ public class Question
     public string Text { get; set; }
 
     public List<Answer> Answers { get; set; }
+
+    [ForeignKey(nameof(Owner))]
+    public int OwnerId { get; set; }
+    [Required]
+    public User Owner { get; set; }
 }

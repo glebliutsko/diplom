@@ -11,4 +11,6 @@ public class ExamPapersDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Token> Tokens { get; set; }
     public DbSet<Group> Groups { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<Answer> Answers { get; set; }
 }
