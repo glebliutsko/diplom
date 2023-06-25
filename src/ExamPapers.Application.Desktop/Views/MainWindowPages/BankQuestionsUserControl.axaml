@@ -16,13 +16,16 @@
                           Classes="classic no-auto-hide">
                 <ItemsControl Name="QuestionItemsControl">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="e:UserResponse">
+                        <DataTemplate DataType="e:QuestionResponse">
                             <Grid ColumnDefinitions="Auto, *">
                                 <TextBlock Classes="Body1"
                                            Grid.Column="0"
                                            VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Login}" />
-                                    <TextBlock Foreground="Gray">(<TextBlock Text="{Binding Role}" />)</TextBlock>
+                                    <TextBlock Text="{Binding Text}" />
+                                    <LineBreak />
+                                    <TextBlock Foreground="Gray">
+                                        Тип: <TextBlock Text="{Binding Type}" />
+                                    </TextBlock>
                                 </TextBlock>
                             
                                 <StackPanel Grid.Column="1"
