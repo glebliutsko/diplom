@@ -8,4 +8,9 @@ public partial class ExamApiClient
     {
         return (await GetAsync<QuestionResponse[]>("question/all").ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> CreateQuestion(QuestionRequest newQuestion)
+    {
+        return (await PostAsync<SuccessResponse, QuestionRequest>("question", newQuestion).ConfigureAwait(false))!;
+    }
 }

@@ -24,4 +24,23 @@ public class QuestionController : ControllerBase
         var question = await _questionService.GetAllUsersQuestions((int)userId);
         return Ok(question);
     }
+
+    [HttpPost]
+    [Authorize(Roles = "Teacher")]
+    [Route("")]
+    public async Task<IActionResult> CreateQuestion(QuestionRequest newQuestion)
+    {
+        var userId = User.GetId();
+        
+        var result = await _questionService.CreateQuestion(newQuestion, (int)userId);
+        if (result)
+            return Ok(new SuccessResponse());
+        
+        return BadRequest(new ErrorsListResponse
+        {
+            StatusCode = StatusCodes.Status400BadRequest,
+            ErrorCode = "CreateQuestionFailed",
+            Errors = new List<ErrorResponse> { new() { Detail = $"Error on create question" } }
+        });
+    }
 }

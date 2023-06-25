@@ -34,6 +34,11 @@ public partial class BankQuestionsUserControl : UserControl
         var newQuestionDialog = new NewQuestionDialog();
         await newQuestionDialog.ShowDialog(_mainWindow);
         
+        if (newQuestionDialog.Result == null)
+            return;
+
+        await ExamApiClientKeeper.Client.CreateQuestion(newQuestionDialog.Result);
+        
         LoadQuestion();
     }
 }

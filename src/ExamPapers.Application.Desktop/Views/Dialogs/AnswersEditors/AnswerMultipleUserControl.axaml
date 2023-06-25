@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:answersEditors="clr-namespace:ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors.AnswerMultipleUserControl">
+             x:Class="ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors.AnswerUserControl">
     <Grid RowDefinitions="*, Auto">
         <ScrollViewer Grid.Row="0"
                       VerticalScrollBarVisibility="Auto"
