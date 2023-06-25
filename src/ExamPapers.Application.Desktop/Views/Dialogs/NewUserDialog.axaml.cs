@@ -23,6 +23,7 @@ public partial class NewUserDialog : Window
         if (user != null)
         {
             HeaderTextBlock.Text = "Изменение пользователя";
+            Title = "Изменение пользователя";
             
             FullNameTextBox.Text = user.FullName;
             LoginTextBox.Text = user.Login;
