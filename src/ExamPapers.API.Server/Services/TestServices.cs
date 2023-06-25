@@ -73,4 +73,59 @@ public class TestServices
 
         return true;
     }
+
+    public async Task<bool> DistributionTestForGroup(int testId, int groupId, TestSessionRequest newSession)
+    {
+        var groupForDistribution = await _db.Groups
+            .Include(x => x.Users)
+            .FirstOrDefaultAsync(x => x.Id == groupId);
+
+        var testForDistribution = await _db.Tests
+            .FirstOrDefaultAsync(x => x.Id == testId);
+
+        if (groupForDistribution == null || testForDistribution == null)
+            return false;
+
+        var session = new ORMModels.TestingSession
+        {
+            DistributionDate = DateTime.UtcNow,
+            Deadline = newSession.Deadline,
+            TestId = testForDistribution.Id,
+            DistributionTests = groupForDistribution.Users
+                .Where(x => x.Role == ORMModels.Role.Student)
+                .Select(x => new ORMModels.DistributionTest { StudentId = x.Id })
+                .ToList()
+        };
+        _db.TestingSessions.Add(session);
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
+    
+    public async Task<bool> DistributionTestForStudent(int testId, int studentId, TestSessionRequest newSession)
+    {
+        var studentForDistribution = await _db.Users
+            .FirstOrDefaultAsync(x => x.Id == studentId && x.Role == ORMModels.Role.Student);
+
+        var testForDistribution = await _db.Tests
+            .FirstOrDefaultAsync(x => x.Id == testId);
+
+        if (studentForDistribution == null || testForDistribution == null)
+            return false;
+
+        var session = new ORMModels.TestingSession
+        {
+            DistributionDate = DateTime.UtcNow,
+            Deadline = newSession.Deadline,
+            TestId = testForDistribution.Id,
+            DistributionTests = new List<ORMModels.DistributionTest>
+            {
+                new() { StudentId = studentForDistribution.Id }
+            }
+        };
+        _db.TestingSessions.Add(session);
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
 }

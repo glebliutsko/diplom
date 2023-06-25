@@ -54,4 +54,30 @@ public partial class TestsUserControl : UserControl
 
         LoadTests();
     }
+
+    private async void SendTestButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button buttonSender)
+            return;
+
+        var clickedTest = (TestShortResponse)buttonSender.Tag!;
+        
+        var selectGroupOrUserDialog = new SelectGroupOrUserDialog();
+        await selectGroupOrUserDialog.ShowDialog(_mainWindow);
+
+        var session = new TestSessionRequest
+        {
+            Deadline = null
+        };
+        if (selectGroupOrUserDialog.StudentId != null)
+        {
+            await ExamApiClientKeeper.Client.DistributionTestForStudent(session, clickedTest.Id,
+                (int)selectGroupOrUserDialog.StudentId);
+        }
+        else if (selectGroupOrUserDialog.GroupId != null)
+        {
+            await ExamApiClientKeeper.Client.DistributionTestForGroup(session, clickedTest.Id,
+                (int)selectGroupOrUserDialog.GroupId);
+        }
+    }
 }

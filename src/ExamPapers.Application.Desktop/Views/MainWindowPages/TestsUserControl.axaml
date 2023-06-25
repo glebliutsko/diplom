@@ -33,6 +33,14 @@
                                             HorizontalAlignment="Right">
                                     <Button Theme="{StaticResource FlatButton}"
                                             Padding="0"
+                                            Click="SendTestButton_OnClick"
+                                            Tag="{Binding}">
+                                        <icon:MaterialIcon Kind="Send"
+                                                           Width="25"
+                                                           Height="25" />
+                                    </Button>
+                                    <Button Theme="{StaticResource FlatButton}"
+                                            Padding="0"
                                             Click="EditTestButton_OnClick"
                                             Tag="{Binding}">
                                         <icon:MaterialIcon Kind="Edit"

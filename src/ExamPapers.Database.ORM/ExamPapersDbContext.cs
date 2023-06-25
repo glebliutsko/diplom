@@ -15,4 +15,6 @@ public class ExamPapersDbContext : DbContext
     public DbSet<Answer> Answers { get; set; }
     public DbSet<Test> Tests { get; set; }
     public DbSet<QuestionsInTest> QuestionsInTests { get; set; }
+    public DbSet<TestingSession> TestingSessions { get; set; }
+    public DbSet<DistributionTest> DistributionTests { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using ExamPapers.Database.ORM;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExamPapers.Database.ORM.Migrations
 {
     [DbContext(typeof(ExamPapersDbContext))]
-    partial class ExamPapersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230625220712_AddDistributionTest")]
+    partial class AddDistributionTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,17 +58,22 @@ namespace ExamPapers.Database.ORM.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("SessionId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TestingSessionId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SessionId");
-
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("TestId");
+
+                    b.HasIndex("TestingSessionId");
 
                     b.ToTable("distributionTests");
                 });
@@ -172,12 +180,7 @@ namespace ExamPapers.Database.ORM.Migrations
                     b.Property<DateTime>("DistributionDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("TestId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TestId");
 
                     b.ToTable("testingSessions");
                 });
@@ -256,21 +259,25 @@ namespace ExamPapers.Database.ORM.Migrations
 
             modelBuilder.Entity("ExamPapers.Database.ORM.Models.DistributionTest", b =>
                 {
-                    b.HasOne("ExamPapers.Database.ORM.Models.TestingSession", "Session")
-                        .WithMany("DistributionTests")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ExamPapers.Database.ORM.Models.User", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Session");
+                    b.HasOne("ExamPapers.Database.ORM.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ExamPapers.Database.ORM.Models.TestingSession", null)
+                        .WithMany("DistributionTests")
+                        .HasForeignKey("TestingSessionId");
 
                     b.Navigation("Student");
+
+                    b.Navigation("Test");
                 });
 
             modelBuilder.Entity("ExamPapers.Database.ORM.Models.Question", b =>
@@ -312,17 +319,6 @@ namespace ExamPapers.Database.ORM.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("ExamPapers.Database.ORM.Models.TestingSession", b =>
-                {
-                    b.HasOne("ExamPapers.Database.ORM.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Test");
                 });
 
             modelBuilder.Entity("ExamPapers.Database.ORM.Models.Token", b =>

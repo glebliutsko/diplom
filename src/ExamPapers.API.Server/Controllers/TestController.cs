@@ -49,4 +49,34 @@ public class TestController : ControllerBase
             Errors = new List<ErrorResponse> { new() { Detail = $"Error on create test" } }
         });
     }
+
+    [HttpPost]
+    [Route("{id:int}/distribution")]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> DistributionTest(
+        TestSessionRequest newSession,
+        int id,
+        [FromQuery] int? groupId = null,
+        [FromQuery] int? studentId = null)
+    {
+        bool result = false;
+        if (groupId != null)
+        {
+            result = await _testServices.DistributionTestForGroup(id, (int)groupId, newSession);
+        }
+        else if (studentId != null)
+        {
+            result = await _testServices.DistributionTestForStudent(id, (int)studentId, newSession);
+        }
+
+        if (result)
+            return Ok(new SuccessResponse());
+        
+        return BadRequest(new ErrorsListResponse
+        {
+            StatusCode = StatusCodes.Status400BadRequest,
+            ErrorCode = "CreateTestingSessionFailed",
+            Errors = new List<ErrorResponse> { new() { Detail = $"Error on create testing session" } }
+        });
+    }
 }
