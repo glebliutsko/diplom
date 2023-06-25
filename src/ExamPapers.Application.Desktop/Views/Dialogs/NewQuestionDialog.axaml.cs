@@ -1,8 +1,6 @@
 using System;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using ExamPapers.API.Entity;
 using ExamPapers.Application.Desktop.Views.Dialogs.AnswersEditors;
 
@@ -21,12 +19,12 @@ public partial class NewQuestionDialog : Window
 
     private void CancelButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Close();
     }
 
     private void AcceptButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     private void TypeComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
