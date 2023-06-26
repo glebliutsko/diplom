@@ -8,4 +8,14 @@ public partial class ExamApiClient
     {
         return (await GetAsync<GroupResponse[]>("groups/all").ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> CreateGroup(GroupRequest newGroup)
+    {
+        return (await PostAsync<SuccessResponse, GroupRequest>("groups", newGroup).ConfigureAwait(false))!;
+    }
+
+    public async Task<SuccessResponse> DeleteGroup(int groupId)
+    {
+        return (await DeleteAsync<SuccessResponse>($"groups/{groupId}").ConfigureAwait(false))!;
+    }
 }

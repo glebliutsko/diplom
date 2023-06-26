@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:e="clr-namespace:ExamPapers.API.Entity;assembly=ExamPapers.API.Entity"
+             xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="ExamPapers.Application.Desktop.Views.MainWindowPages.GroupManagementUserControl">
+    <Border Classes="GroupBox RoundLeft"
+            Margin="20 10 0 10">
+        <Grid ColumnDefinitions="*,Auto">
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          Classes="classic no-auto-hide">
+                <ItemsControl Name="GroupsItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="e:GroupResponse">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <TextBlock Classes="Body1"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" />
+                                </TextBlock>
+                            
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right">
+                                    <Button Theme="{StaticResource FlatButton}"
+                                            Padding="0"
+                                            Click="EditGroupButton_OnClick"
+                                            Tag="{Binding}">
+                                        <icon:MaterialIcon Kind="Edit"
+                                                           Width="25"
+                                                           Height="25" />
+                                    </Button>
+                                    <Button Theme="{StaticResource FlatButton}"
+                                            Padding="0"
+                                            Click="DeleteGroupButton_OnClick"
+                                            Tag="{Binding}">
+                                        <icon:MaterialIcon Kind="Delete"
+                                                           Foreground="Red"
+                                                           Width="25"
+                                                           Height="25" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Top">
+                <Button Theme="{StaticResource FlatButton}"
+                        Padding="0"
+                        Click="CreateGroupButton_OnClick">
+                    <icon:MaterialIcon Kind="Add"
+                                       Width="30"
+                                       Height="30" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

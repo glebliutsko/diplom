@@ -34,7 +34,7 @@ public partial class MainWindow : Window
                         () => new UserManagementUserControl(this)),
                     new CustomMenuItem(MaterialIconKind.Group,
                         "Группы",
-                        () => null)
+                        () => new GroupManagementUserControl(this))
                 };
                 break;
             case "Teacher":
