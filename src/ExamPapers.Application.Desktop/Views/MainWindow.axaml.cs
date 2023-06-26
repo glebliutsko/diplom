@@ -68,8 +68,17 @@ public partial class MainWindow : Window
     {
         if (sender is not ListBox eSender)
             return;
+        
+        if (eSender.SelectedIndex == -1)
+            return;
 
         var selectedItem = _menuItems[eSender.SelectedIndex];
         MainContentControl.Content = selectedItem.GetContent();
+    }
+
+    public void ShowContent(AvaloniaObject content)
+    {
+        MainMenuListBox.SelectedIndex = -1;
+        MainContentControl.Content = content;
     }
 }

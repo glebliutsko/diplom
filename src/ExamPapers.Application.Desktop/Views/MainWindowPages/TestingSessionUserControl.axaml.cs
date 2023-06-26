@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ExamPapers.API.Entity;
 
 namespace ExamPapers.Application.Desktop.Views.MainWindowPages;
 
@@ -18,6 +19,11 @@ public partial class TestingSessionUserControl : UserControl
 
     private void ShowSessionButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        if (sender is not Button button)
+            return;
+
+        var session = (TestSessionResponse)button.Tag;
         
+        _mainWindow.ShowContent(new TestingSessionStudentResultUserControl(session));
     }
 }

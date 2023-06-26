@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:e="clr-namespace:ExamPapers.API.Entity;assembly=ExamPapers.API.Entity"
+             xmlns:mainWindowPages="clr-namespace:ExamPapers.Application.Desktop.Views.MainWindowPages"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ExamPapers.Application.Desktop.Views.MainWindowPages.TestingSessionStudentResultUserControl">
+    <UserControl.Resources>
+        <mainWindowPages:StudentTestingResultToString x:Key="StudentTestingResultToString" />
+    </UserControl.Resources>
+    <Border Classes="GroupBox RoundLeft"
+            Margin="20 10 0 10">
+        <Grid ColumnDefinitions="*">
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          Classes="classic no-auto-hide">
+                <ItemsControl Name="ResultItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="e:DistributionResponse">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <TextBlock Classes="Body1"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Student.FullName}" />
+                                    <LineBreak />
+                                    <TextBlock Foreground="Gray" Text="{Binding Result, Converter={StaticResource StudentTestingResultToString}}" />
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
