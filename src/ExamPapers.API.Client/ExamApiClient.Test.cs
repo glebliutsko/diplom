@@ -30,4 +30,10 @@ public partial class ExamApiClient
     {
         return (await GetAsync<TestFullResponse>($"test/{testId}/full").ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> SendResultPassedTest(int distributionId, PassedTestRequest result)
+    {
+        return (await PostAsync<SuccessResponse, PassedTestRequest>($"users/me/test-passed/{distributionId}", result)
+            .ConfigureAwait(false))!;
+    }
 }

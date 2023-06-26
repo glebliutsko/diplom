@@ -65,6 +65,7 @@ public class TestController : ControllerBase
                 Id = question.Question.Id,
                 Text = question.Question.Text,
                 Type = Enum.Parse<QuestionTypeResponse>(question.Question.Type.ToString()),
+                Score = question.Scored,
                 Answers = question.Question.Answers.Select(answer => new AnswerResponse
                 {
                     Text = answer.Text,

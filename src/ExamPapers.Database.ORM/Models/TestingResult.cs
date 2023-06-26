@@ -13,6 +13,9 @@ public class TestingResult
 
     [Required]
     public int AllScore { get; set; }
+    
+    [Required]
+    public DateTime PassedTime { get; set; }
 
     [ForeignKey(nameof(DistributionTest))]
     public int DistributionTestId { get; set; }

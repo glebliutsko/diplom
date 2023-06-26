@@ -131,5 +131,36 @@ public class UsersController : ControllerBase
             }
         }).ToArray());
     }
+
+    [HttpPost]
+    [Authorize(Roles = "Student")]
+    [Route("me/test-passed/{id:int}")]
+    public async Task<IActionResult> PassedTest(PassedTestRequest result, int id)
+    {
+        var distribution = await _db.DistributionTests
+            .Include(x => x.Session)
+            .ThenInclude(x => x.Test)
+            .ThenInclude(x => x.QuestionsInTests)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (distribution == null)
+            return BadRequest(new ErrorsListResponse
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                ErrorCode = "AddResultFailed",
+                Errors = new List<ErrorResponse> { new() { Detail = $"Error on add result passed test" } }
+            }); 
+
+        _db.TestingResults.Add(new ORMModels.TestingResult
+        {
+            Score = result.Score,
+            AllScore = distribution.Session.Test.QuestionsInTests.Sum(x => x.Scored),
+            DistributionTestId = distribution.Id,
+            PassedTime = DateTime.UtcNow
+        });
+        await _db.SaveChangesAsync();
+
+        return Ok(new SuccessResponse());
+    }
 }
     

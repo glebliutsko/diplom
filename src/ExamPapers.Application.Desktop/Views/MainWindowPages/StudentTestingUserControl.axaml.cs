@@ -16,6 +16,11 @@ public partial class StudentTestingUserControl : UserControl
         _mainWindow = mainWindow;
         InitializeComponent();
 
+        LoadTests();
+    }
+
+    private void LoadTests()
+    {
         TestsItemsControl.ItemsSource = ExamApiClientKeeper.Client.GetMeAvailableTesting().Result;
     }
 
@@ -29,5 +34,12 @@ public partial class StudentTestingUserControl : UserControl
         
         var passingTestDialog = new PassingTestDialog(selectedFullTest);
         await passingTestDialog.ShowDialog(_mainWindow);
+
+        await ExamApiClientKeeper.Client.SendResultPassedTest(selectedTest.DistributionId, new PassedTestRequest
+        {
+            Score = passingTestDialog.CurrentScore
+        });
+
+        LoadTests();
     }
 }

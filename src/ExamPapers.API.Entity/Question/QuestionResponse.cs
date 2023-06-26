@@ -13,6 +13,8 @@ public record QuestionResponse
     [Required(AllowEmptyStrings = false)]
     public required string Text { get; init; }
 
+    public int? Score { get; init; } = null;
+
     public List<AnswerResponse> Answers { get; init; }
 }
 

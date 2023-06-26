@@ -11,12 +11,15 @@ public partial class PassingTestDialog : Window
     private readonly DistributionTestShortResponse _distributionTestShortResponse;
     private readonly TestFullResponse _currentTest;
 
-    private int _currentQuestion = 0;
+    private int _currentQuestionIndex = 0;
     private ISingleInputUserControl? _inputAnswer;
+
+    public int CurrentScore { get; private set; }
 
     public PassingTestDialog(TestFullResponse test)
     {
         _currentTest = test;
+        CurrentScore = 0;
         
         InitializeComponent();
 
@@ -26,9 +29,9 @@ public partial class PassingTestDialog : Window
 
     private void ShowCurrentQuestion()
     {
-        var currentQuestion = _currentTest.Questions[_currentQuestion];
+        var currentQuestion = _currentTest.Questions[_currentQuestionIndex];
         
-        QuestionTextBlock.Text = _currentTest.Questions[_currentQuestion].Text;
+        QuestionTextBlock.Text = _currentTest.Questions[_currentQuestionIndex].Text;
 
         _inputAnswer = currentQuestion.Type switch
         {
@@ -42,13 +45,18 @@ public partial class PassingTestDialog : Window
 
     private void NextQuestion()
     {
-        _currentQuestion++;
-        if (_currentQuestion >= _currentTest.Questions.Count)
+        var currentQuestion = _currentTest.Questions[_currentQuestionIndex];
+        
+        if (_inputAnswer?.IsCorrect() == true)
+            CurrentScore += currentQuestion.Score ?? 1;
+        
+        _currentQuestionIndex++;
+        if (_currentQuestionIndex >= _currentTest.Questions.Count)
         {
             FinishPassing();
             return;
         }
-
+        
         ShowCurrentQuestion();
     }
 
