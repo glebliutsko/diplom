@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             MaxHeight="100"
+             x:Class="ExamPapers.Application.Desktop.Views.Dialogs.AnswersInput.OpenInputUserControl">
+    <Grid>
+        <TextBox UseFloatingWatermark="True"
+                 Name="AnswerTextBox"
+                 Classes="outline"
+                 VerticalAlignment="Top"
+                 Theme="{StaticResource OutlineTextBox}"
+                 assists:TextFieldAssist.Label="Ответ" />
+    </Grid>
+</UserControl>

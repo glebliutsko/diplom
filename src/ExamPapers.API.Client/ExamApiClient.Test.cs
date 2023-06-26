@@ -25,4 +25,9 @@ public partial class ExamApiClient
         return (await PostAsync<SuccessResponse, TestSessionRequest>($"test/{testId}/distribution?studentId={studentId}", newSession)
             .ConfigureAwait(false))!;
     }
+
+    public async Task<TestFullResponse> GetTestFull(int testId)
+    {
+        return (await GetAsync<TestFullResponse>($"test/{testId}/full").ConfigureAwait(false))!;
+    }
 }

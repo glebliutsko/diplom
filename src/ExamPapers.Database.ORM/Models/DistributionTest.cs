@@ -16,4 +16,6 @@ public class DistributionTest
     public int SessionId { get; set; }
     [Required]
     public TestingSession Session { get; set; }
+    
+    public List<TestingResult> Results { get; set; }
 }

@@ -17,4 +17,5 @@ public class ExamPapersDbContext : DbContext
     public DbSet<QuestionsInTest> QuestionsInTests { get; set; }
     public DbSet<TestingSession> TestingSessions { get; set; }
     public DbSet<DistributionTest> DistributionTests { get; set; }
+    public DbSet<TestingResult> TestingResults { get; set; }
 }

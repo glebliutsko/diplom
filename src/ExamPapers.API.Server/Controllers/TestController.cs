@@ -1,6 +1,7 @@
 using ExamPapers.API.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExamPapers.API.Server.Controllers;
 
@@ -9,10 +10,12 @@ namespace ExamPapers.API.Server.Controllers;
 public class TestController : ControllerBase
 {
     private readonly TestServices _testServices;
+    private readonly ExamPapersDbContext _db;
 
-    public TestController(TestServices testServices)
+    public TestController(TestServices testServices, ExamPapersDbContext db)
     {
         _testServices = testServices;
+        _db = db;
     }
 
     [HttpGet]
@@ -26,11 +29,49 @@ public class TestController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
-    [Authorize(Roles = "Teacher")]
+    [Authorize]
     public async Task<IActionResult> GetTest(int id)
     {
         var test = await _testServices.GetTest(id);
         return Ok(test);
+    }
+    
+    [HttpGet]
+    [Route("{id:int}/full")]
+    [Authorize]
+    public async Task<IActionResult> GetFullTest(int id)
+    {
+        var test = await _db.Tests
+            .Include(x => x.QuestionsInTests)
+            .ThenInclude(x => x.Question)
+            .ThenInclude(x => x.Answers)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (test == null)
+            return NotFound(new ErrorsListResponse
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                ErrorCode = "NotFountTest",
+                Errors = new List<ErrorResponse> { new() { Detail = $"Test with id={id} not found" } }
+            });
+        
+        return Ok(new TestFullResponse
+        {
+            Id = test.Id,
+            Description = test.Description,
+            Title = test.Title,
+            Questions = test.QuestionsInTests.Select(question => new QuestionResponse
+            {
+                Id = question.Question.Id,
+                Text = question.Question.Text,
+                Type = Enum.Parse<QuestionTypeResponse>(question.Question.Type.ToString()),
+                Answers = question.Question.Answers.Select(answer => new AnswerResponse
+                {
+                    Text = answer.Text,
+                    IsCorrect = answer.IsCorrect
+                }).ToList()
+            }).ToList()
+        });
     }
 
     [HttpPost]

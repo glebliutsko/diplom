@@ -28,4 +28,9 @@ public partial class ExamApiClient
     {
         return (await DeleteAsync<SuccessResponse>($"users/{id}").ConfigureAwait(false))!;
     }
+    
+    public async Task<DistributionTestShortResponse[]> GetMeAvailableTesting()
+    {
+        return (await GetAsync<DistributionTestShortResponse[]>("users/me/available-testing").ConfigureAwait(false))!;
+    }
 }

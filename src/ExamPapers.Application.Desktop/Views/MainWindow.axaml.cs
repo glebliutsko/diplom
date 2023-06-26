@@ -49,6 +49,12 @@ public partial class MainWindow : Window
                 };
                 break;
             case "Student":
+                menuItems = new IMainMenuItem[]
+                {
+                    new CustomMenuItem(MaterialIconKind.HelpBoxMultiple,
+                        "Тестирование",
+                        () => new StudentTestingUserControl(this))
+                };
                 break;
         }
 

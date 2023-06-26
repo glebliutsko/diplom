@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:e="clr-namespace:ExamPapers.API.Entity;assembly=ExamPapers.API.Entity"
+             xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="ExamPapers.Application.Desktop.Views.MainWindowPages.StudentTestingUserControl">
+    <Border Classes="GroupBox RoundLeft"
+            Margin="20 10 0 10">
+        <Grid ColumnDefinitions="*">
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          Classes="classic no-auto-hide">
+                <ItemsControl Name="TestsItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="e:DistributionTestShortResponse">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <TextBlock Classes="Body1"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Test.Title}" />
+                                    <TextBlock>( Вопросов: <TextBlock Text="{Binding Test.CountQuestion}" />)</TextBlock>
+                                    <LineBreak />
+                                    <TextBlock Foreground="Gray"
+                                               Text="{Binding Test.Description}" />
+                                </TextBlock>
+                            
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right">
+                                    <Button Theme="{StaticResource FlatButton}"
+                                            Padding="0"
+                                            Click="GetTestedButton_OnClick"
+                                            Tag="{Binding}">
+                                        <icon:MaterialIcon Kind="Check"
+                                                           Width="25"
+                                                           Height="25" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

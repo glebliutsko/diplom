@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Width="700"
+        Height="380"
+        x:Class="ExamPapers.Application.Desktop.Views.Dialogs.PassingTestDialog"
+        Title="Прохождение тестирования"
+        Padding="5">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <TextBlock Grid.Row="0"
+                   Margin="0 0 0 10"
+                   Name="TitleTestTextBlock"
+                   Classes="Headline6" />
+        
+        <TextBlock Grid.Row="1"
+                   Margin="0 0 0 10"
+                   Classes="Body1"
+                   Name="QuestionTextBlock" />
+        
+        <ContentControl Grid.Row="2"
+                        VerticalAlignment="Top"
+                        Name="AnswerInputContentControl"/>
+        
+        <Button Grid.Row="3"
+                HorizontalAlignment="Right"
+                Theme="{StaticResource FlatButton}"
+                Click="AnswerButton_OnClick"
+                Content="Ответить" />
+    </Grid>
+</Window>
