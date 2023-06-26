@@ -19,10 +19,10 @@
             
             <ComboBox Name="TypeDistributionComboBox"
                       Classes="Outline"
-                      assists:ComboBoxAssist.Label="Роль"
+                      assists:ComboBoxAssist.Label="Тип"
                       SelectionChanged="TypeDistributionComboBox_OnSelectionChanged">
-                <ComboBoxItem>Студент</ComboBoxItem>
-                <ComboBoxItem>Группа</ComboBoxItem>
+                <ComboBoxItem>Студенту</ComboBoxItem>
+                <ComboBoxItem>Группе</ComboBoxItem>
             </ComboBox>
         </StackPanel>
         

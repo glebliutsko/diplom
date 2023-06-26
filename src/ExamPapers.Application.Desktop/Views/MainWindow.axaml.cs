@@ -45,7 +45,10 @@ public partial class MainWindow : Window
                         () => new BankQuestionsUserControl(this)),
                     new CustomMenuItem(MaterialIconKind.HelpBoxMultiple,
                         "Тесты",
-                        () => new TestsUserControl(this))
+                        () => new TestsUserControl(this)),
+                    new CustomMenuItem(MaterialIconKind.CheckAll,
+                        "Результаты",
+                        () => new TestingSessionUserControl(this))
                 };
                 break;
             case "Student":
