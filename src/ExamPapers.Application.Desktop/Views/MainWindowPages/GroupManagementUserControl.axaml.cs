@@ -36,9 +36,23 @@ public partial class GroupManagementUserControl : UserControl
         LoadGroup();
     }
 
-    private void EditGroupButton_OnClick(object? sender, RoutedEventArgs e)
+    private async void EditGroupButton_OnClick(object? sender, RoutedEventArgs e)
     {   
+        if (sender is not Button buttonSender)
+            return;
         
+        if (buttonSender.Tag is not GroupResponse group)
+            return;
+        
+        var newGroupDialog = new NewGroupDialog(group);
+        await newGroupDialog.ShowDialog(_mainWindow);
+        
+        if (newGroupDialog.Result == null)
+            return;
+
+        await ExamApiClientKeeper.Client.EditGroup(group.Id, newGroupDialog.Result);
+        
+        LoadGroup();
     }
 
     private async void DeleteGroupButton_OnClick(object? sender, RoutedEventArgs e)

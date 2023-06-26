@@ -67,4 +67,26 @@ public class GroupsController : ControllerBase
         await _db.SaveChangesAsync();
         return Ok(new SuccessResponse());
     }
+
+    [HttpPut]
+    [Authorize(Roles = "Admin")]
+    [Route("{id:int}")]
+    public async Task<IActionResult> EditGroup(int id, GroupRequest editedGroup)
+    {
+        var group = await _db.Groups.FirstOrDefaultAsync(x => x.Id == id);
+        if (group == null)
+        {
+            return NotFound(new ErrorsListResponse
+            {
+                StatusCode = StatusCodes.Status404NotFound,
+                ErrorCode = "DeleteGroupFailed",
+                Errors = new List<ErrorResponse> { new() { Detail = $"Group id={id} not found" } }
+            });
+        }
+
+        group.Name = editedGroup.Name;
+        await _db.SaveChangesAsync();
+
+        return Ok(new SuccessResponse());
+    }
 }

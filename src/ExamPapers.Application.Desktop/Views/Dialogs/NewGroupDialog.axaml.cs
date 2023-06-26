@@ -8,11 +8,21 @@ namespace ExamPapers.Application.Desktop.Views.Dialogs;
 
 public partial class NewGroupDialog : Window
 {
+    private readonly GroupResponse? _group;
     public GroupRequest? Result { get; private set; } = null;
     
-    public NewGroupDialog()
+    public NewGroupDialog(GroupResponse? group = null)
     {
+        _group = group;
+        
         InitializeComponent();
+
+        if (_group != null)
+        {
+            Title = "Редактирование группы";
+            HeaderTextBlock.Text = "Редактирование группы";
+            GroupNameTextBox.Text = _group.Name;
+        }
     }
 
     private void CancelButton_OnClick(object? sender, RoutedEventArgs e)

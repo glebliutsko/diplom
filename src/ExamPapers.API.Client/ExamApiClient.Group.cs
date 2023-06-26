@@ -18,4 +18,9 @@ public partial class ExamApiClient
     {
         return (await DeleteAsync<SuccessResponse>($"groups/{groupId}").ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> EditGroup(int groupId, GroupRequest group)
+    {
+        return (await PutAsync<SuccessResponse, GroupRequest>($"groups/{groupId}", group).ConfigureAwait(false))!;
+    }
 }
