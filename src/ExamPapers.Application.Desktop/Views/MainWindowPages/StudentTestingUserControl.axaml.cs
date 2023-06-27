@@ -40,6 +40,8 @@ public partial class StudentTestingUserControl : UserControl
             Score = passingTestDialog.CurrentScore
         });
 
+        await new MessageBoxDialog($"Ваш результат: {passingTestDialog.CurrentScore} баллов").ShowDialog(_mainWindow);
+
         LoadTests();
     }
 }
