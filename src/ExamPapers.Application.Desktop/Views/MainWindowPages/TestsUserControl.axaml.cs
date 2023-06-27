@@ -15,7 +15,7 @@ public partial class TestsUserControl : UserControl
     public TestsUserControl(MainWindow mainWindow)
     {
         _mainWindow = mainWindow;
-        
+
         InitializeComponent();
 
         LoadTests();
@@ -25,7 +25,7 @@ public partial class TestsUserControl : UserControl
     {
         TestsItemsControl.ItemsSource = GetAllTests().Result;
     }
-    
+
     private async Task<TestShortResponse[]> GetAllTests()
     {
         return await ExamApiClientKeeper.Client.GetAllTests()
@@ -37,16 +37,24 @@ public partial class TestsUserControl : UserControl
         
     }
 
-    private void DeleteTestButton_OnClick(object? sender, RoutedEventArgs e)
+    private async void DeleteTestButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        var test = (TestShortResponse)((Button)sender).Tag;
+
+        var confirmDialog = new ConfirmActionDialog($"Удалить выбранные тест?");
+        await confirmDialog.ShowDialog(_mainWindow);
+
+        if (confirmDialog.Result)
+            await ExamApiClientKeeper.Client.DeleteTest(test.Id);
         
+        LoadTests();
     }
 
     private async void CreateTestButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var newTestDialog = new NewTestDialog();
         await newTestDialog.ShowDialog(_mainWindow);
-        
+
         if (newTestDialog.Result == null)
             return;
 
@@ -61,7 +69,7 @@ public partial class TestsUserControl : UserControl
             return;
 
         var clickedTest = (TestShortResponse)buttonSender.Tag!;
-        
+
         var selectGroupOrUserDialog = new SelectGroupOrUserDialog();
         await selectGroupOrUserDialog.ShowDialog(_mainWindow);
 

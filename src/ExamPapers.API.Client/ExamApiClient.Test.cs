@@ -36,4 +36,9 @@ public partial class ExamApiClient
         return (await PostAsync<SuccessResponse, PassedTestRequest>($"users/me/test-passed/{distributionId}", result)
             .ConfigureAwait(false))!;
     }
+
+    public async Task<SuccessResponse> DeleteTest(int testId)
+    {
+        return (await DeleteAsync<SuccessResponse>($"test/{testId}").ConfigureAwait(false))!;
+    }
 }

@@ -121,4 +121,18 @@ public class TestController : ControllerBase
             Errors = new List<ErrorResponse> { new() { Detail = $"Error on create testing session" } }
         });
     }
+
+    [HttpDelete]
+    [Route("{id:int}")]
+    [Authorize(Roles = "Teacher")]
+    public async Task<IActionResult> DeleteTest(int id)
+    {
+        var testForDelete = await _db.Tests.FirstOrDefaultAsync(x => x.Id == id);
+        if (testForDelete == null)
+            return Ok(new SuccessResponse());
+        
+        _db.Remove(testForDelete);
+        await _db.SaveChangesAsync();
+        return Ok(new SuccessResponse());
+    }
 }
